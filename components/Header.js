@@ -22,18 +22,20 @@ const Header = (props) => {
 
 
 const styles = StyleSheet.create({
-    header: {
-        marginTop: 36,
-        width: '100%',
-        backgroundColor: 'lavender',
-        height: 80,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+
     disparato: {
         fontSize: 36,
         color: 'black'
+    },
+
+    header: {    
+        width: '100%',
+        backgroundColor: 'lavender',
+        height: 180,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 })
 
 export default Header;
+
