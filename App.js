@@ -9,16 +9,37 @@ import Test from './components/Test'
 
 export default function App(props) {
 
-  const onGoHandler = ()=> { setScreenShown(wordsScreen) }
-  const goBackHandler = ()=> {setScreenShown(startScreen)}
-  let startScreen = <Start onPressHandler={onGoHandler}/>
-  let wordsScreen = <FoundWords onPressHandler={goBackHandler}/>
-  let [ screenShown, setScreenShown ] = useState(startScreen)
+  // let [ screenShown, setScreenShown ] = useState(startScreen);
+  let [ firstWord, setFirstWord ] = useState('');
+  let [ wordTwo, setWordTwo ] = useState('');
+  let wordsArray = [];
 
+  const onGoHandler = (selectedWordOne, selectedWordTwo)=> { 
+    setFirstWord(selectedWordOne); 
+    setWordTwo(selectedWordTwo);
+    wordsArray = [firstWord, 'onion', wordTwo, 'spaghetti']};
+
+  const goBackHandler = ()=> {
+    setFirstWord(''); 
+    setWordTwo(''); }
+
+  let startScreen = <Start onPressHandler={onGoHandler}/>
+  let wordsScreen = <FoundWords onPressHandler={goBackHandler}
+  w1={firstWord} 
+  w2={wordTwo}
+  allWords={wordsArray} />;
+
+  let content = startScreen;
+
+  if (firstWord != '' && wordTwo != '') {
+    content = wordsScreen;
+  }
+
+  console.log('Word One: ' + firstWord + ' Word Two: ' + wordTwo)
 
   return (
     <View style={styles.screen}>
-      {screenShown}
+      {content}
     </View>
 
   );

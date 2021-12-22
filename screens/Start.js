@@ -1,51 +1,55 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Button, TextInput } from 'react-native';
+import { View, StyleSheet, Button, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Header from '../components/Header'
 
 const Start = (props) => {
    
-  let [ firstWord, setFirstWord ] = useState('')
+  let [ selectedWordOne, setSelectedWordOne ] = useState('')
 
-  const firstWordHandler = inputText => {
-    setFirstWord(inputText)
-    // console.log(typeof(firstWord))
+  const wordOneHandler = inputOne => {
+    setSelectedWordOne(inputOne)
   }
-  let [wordTwo, setWordTwo ] = useState('')
+
+  let [selectedWordTwo, setSelectedWordTwo ] = useState('')
 
   const wordTwoHandler = inputTwo => {
-    setWordTwo(inputTwo)
+    setSelectedWordTwo(inputTwo)
   }
 
   const goButtonHandler = ()=> {
-    props.onPressHandler();
-    console.log(firstWord);
-    console.log(wordTwo);
-    setFirstWord('');
-    setWordTwo('');
+    console.log(selectedWordOne);
+    console.log(selectedWordTwo);
+    props.onPressHandler(selectedWordOne, selectedWordTwo);
+
+    setSelectedWordOne('');
+    setSelectedWordTwo('');
   }
 
     return (
-      <View style={styles.screen}>
-      <Header />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+        <View style={styles.screen}>
+        <Header />
 
-      <View style={styles.buttonContainer}>
-          <TextInput placeholder="First Word" 
-          style = {styles.inputBox} 
-          value={firstWord} 
-          onChangeText={firstWordHandler}>
-          </TextInput>
+        <View style={styles.buttonContainer}>
+            <TextInput placeholder="First Word" 
+            style = {styles.inputBox} 
+            value={selectedWordOne} 
+            onChangeText={wordOneHandler}>
+            </TextInput>
 
-          <TextInput placeholder="Second Word" 
-          style = {styles.inputBox} 
-          value={wordTwo} 
-          onChangeText={wordTwoHandler}>
-          </TextInput>
+            <TextInput placeholder="Second Word" 
+            style = {styles.inputBox} 
+            value={selectedWordTwo} 
+            onChangeText={wordTwoHandler}>
+            </TextInput>
 
-          <Button title="Go!" onPress={goButtonHandler}></Button>
+            <Button title="Go!" onPress={goButtonHandler}></Button>
+
+        </View>
+        
 
       </View>
-
-    </View>
+    </TouchableWithoutFeedback>
   );
     }
 
