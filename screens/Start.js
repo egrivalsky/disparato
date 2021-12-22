@@ -17,6 +17,7 @@ const Start = (props) => {
   }
 
   const goButtonHandler = ()=> {
+    props.onPressHandler();
     console.log(firstWord);
     console.log(wordTwo);
     setFirstWord('');

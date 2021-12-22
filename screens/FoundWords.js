@@ -1,20 +1,20 @@
 import React from "react";
-import {Text, ScrollView, View, StyleSheet} from "react-native"
+import {Text, ScrollView, View, StyleSheet, Button} from "react-native"
 import Header from "../components/Header";
 
 
-const FoundWords = () => {
+const FoundWords = (props) => {
 
 
     
-    const listOfWords = "these are the words"
+    const listOfWords = "these are the words..."
     
     return (
-
-
     <View style={styles.screen}>
+        <Header />
         <View style={styles.wordList}>
-        <Text style={styles.listItems}> list of words here...</Text>
+        <Text style={styles.listItems}>{listOfWords}</Text>
+        <Button title="[ go back ]" onPress={()=>{props.onPressHandler()}} />
         </View>
 
     </View>
