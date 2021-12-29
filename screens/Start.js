@@ -25,6 +25,22 @@ const Start = (props) => {
     setSelectedWordTwo('');
   }
 
+  const netHandler = async () => {
+    try { 
+      let response = await fetch('http://192.168.1.184:8000/related_words/puppy/kitten/data.json');
+
+    let json = await response.json();
+    console.log(json)
+    return response 
+    } catch(error) {
+      console.log(error)
+    }
+    // .then(disparato => console.log('JSON: ' + JSON.stringify(disparato)))
+    // .then(console.log('all done on the front end'))
+    // .catch(error => console.log('ERROR: ' + error.message))
+  
+  }
+
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
         <View style={styles.screen}>
@@ -44,7 +60,7 @@ const Start = (props) => {
             </TextInput>
 
             <Button title="Go!" onPress={goButtonHandler}></Button>
-
+            <Button title="Check the 'Net" onPress={netHandler}></Button>
         </View>
         
 
