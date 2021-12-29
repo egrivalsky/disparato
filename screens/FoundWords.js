@@ -5,10 +5,9 @@ import Header from "../components/Header";
 
 const FoundWords = (props) => {
 
-    console.log(props)
+    // console.log(JSON.stringify(props))
     
     const listOfWords = `${props.w1} meets ${props.w2}:`
-    let wordList = props.allWords
     
     return (
     <View style={styles.screen}>
@@ -17,13 +16,12 @@ const FoundWords = (props) => {
         <Text style={styles.listItems}>{listOfWords}</Text>
         <View>
             <Text>
-                wordList
+                {props.allWords}
             </Text>
         </View>
-        
-        
+
         </View>
-    <Button title="[ go back ]" onPress={()=>{props.onPressHandler()}} />
+        <Button title="[ go back ]" onPress={()=>{props.onPressHandler()}} />
     </View>
 
 )}

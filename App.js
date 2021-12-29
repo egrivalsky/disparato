@@ -12,12 +12,23 @@ export default function App(props) {
   // let [ screenShown, setScreenShown ] = useState(startScreen);
   let [ firstWord, setFirstWord ] = useState('');
   let [ wordTwo, setWordTwo ] = useState('');
-  let wordsArray = [];
+  let wordsArray = [firstWord, 'onion', wordTwo, 'spaghetti'];
 
-  const onGoHandler = (selectedWordOne, selectedWordTwo)=> { 
+  const onGoHandler = async (selectedWordOne, selectedWordTwo)=> { 
     setFirstWord(selectedWordOne); 
     setWordTwo(selectedWordTwo);
-    wordsArray = [firstWord, 'onion', wordTwo, 'spaghetti']};
+
+    try { 
+      let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
+
+      let json = await response.json();
+      let disparato = json.cousinWords
+      console.log(disparato)
+      // return disparato
+      } catch(error) {
+      console.error(error)
+      }
+    };
 
   const goBackHandler = ()=> {
     setFirstWord(''); 
@@ -35,7 +46,7 @@ export default function App(props) {
     content = wordsScreen;
   }
 
-  console.log('Word One: ' + firstWord + ' Word Two: ' + wordTwo)
+  // console.log('Word One: ' + firstWord + ' Word Two: ' + wordTwo)
 
   return (
     <View style={styles.screen}>

@@ -17,28 +17,28 @@ const Start = (props) => {
   }
 
   const goButtonHandler = ()=> {
-    console.log(selectedWordOne);
-    console.log(selectedWordTwo);
+    // console.log(selectedWordOne);
+    // console.log(selectedWordTwo);
     props.onPressHandler(selectedWordOne, selectedWordTwo);
 
     setSelectedWordOne('');
     setSelectedWordTwo('');
-  }
 
-  const netHandler = async () => {
-    try { 
-      let response = await fetch('http://192.168.1.184:8000/related_words/puppy/kitten/data.json');
+  // const netHandler = async () => {
+  //   try { 
+  //       let response = await fetch('http://192.168.1.184:8000/related_words/puppy/kitten/data.json');
 
-    let json = await response.json();
-    console.log(json)
-    return response 
-    } catch(error) {
-      console.log(error)
-    }
+  //       let json = await response.json();
+  //       console.log(json)
+  //       return response 
+
+  //   } catch(error) {
+  //       console.log(error)
+  //   }
+  // }
     // .then(disparato => console.log('JSON: ' + JSON.stringify(disparato)))
     // .then(console.log('all done on the front end'))
     // .catch(error => console.log('ERROR: ' + error.message))
-  
   }
 
     return (
@@ -60,7 +60,7 @@ const Start = (props) => {
             </TextInput>
 
             <Button title="Go!" onPress={goButtonHandler}></Button>
-            <Button title="Check the 'Net" onPress={netHandler}></Button>
+            {/* <Button title="Check the 'Net" onPress={netHandler}></Button>  */}
         </View>
         
 
