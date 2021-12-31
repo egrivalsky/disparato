@@ -4,8 +4,6 @@ import Header from "../components/Header";
 
 
 const FoundWords = (props) => {
-
-    // console.log(JSON.stringify(props))
     
     const listOfWords = `${props.w1} meets ${props.w2}:`
     
@@ -16,7 +14,7 @@ const FoundWords = (props) => {
         <Text style={styles.listItems}>{listOfWords}</Text>
         <View>
             <Text>
-                {props.allWords}
+                {props.disparato}
             </Text>
         </View>
 

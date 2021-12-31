@@ -13,6 +13,7 @@ export default function App(props) {
   let [ firstWord, setFirstWord ] = useState('');
   let [ wordTwo, setWordTwo ] = useState('');
   let wordsArray = [firstWord, 'onion', wordTwo, 'spaghetti'];
+  let [allWords, setAllWords] = useState([])
 
   const onGoHandler = async (selectedWordOne, selectedWordTwo)=> { 
     setFirstWord(selectedWordOne); 
@@ -22,8 +23,9 @@ export default function App(props) {
       let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
 
       let json = await response.json();
-      let disparato = json.cousinWords
-      console.log(disparato)
+      let firstDegreeWords = json.immediateWords
+      console.log(firstDegreeWords)
+      setAllWords(firstDegreeWords)
       // return disparato
       } catch(error) {
       console.error(error)
@@ -38,7 +40,7 @@ export default function App(props) {
   let wordsScreen = <FoundWords onPressHandler={goBackHandler}
   w1={firstWord} 
   w2={wordTwo}
-  allWords={wordsArray} />;
+  disparato={allWords} />;
 
   let content = startScreen;
 
