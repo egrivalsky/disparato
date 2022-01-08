@@ -31,9 +31,10 @@ const styles = StyleSheet.create({
     header: {    
         width: '100%',
         backgroundColor: 'lavender',
-        height: 180,
+        height: 110,
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: 36,
     }
 })
 
