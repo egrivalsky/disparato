@@ -9,8 +9,8 @@ const FoundWords = (props) => {
     const w2 = props.w2;
 
     const relatedWordsLists = {
-        'wordOneList': props.w1List,
-        'wordTwoList': props.w2List
+        "wordOneList": props.w1List,
+        "wordTwoList": props.w2List
     } 
 
     let [wordOneImmediateRelations, setWordOneImmediateRelations] = useState([]);
@@ -19,11 +19,18 @@ const FoundWords = (props) => {
     const goDeeperPressHandler = async () => {
         console.log('1')
         try { 
-            relatedWordsListsString = JSON.stringify(relatedWordsLists)            
-            let response = await fetch(`http://192.168.1.184:8000/second_degree_words/${relatedWordsListsString}`);
+            // relatedWordsListsString = JSON.stringify(relatedWordsLists)            
+            let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify(relatedWordsLists)
+          });
             console.log('2')
-            let json = await response.json();
-            console.log(json.wordOne)
+            // let json = await response.json();
+            // console.log(json.wordOne)
             console.log('3')
             // console.log(json)
             console.log('4')

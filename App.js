@@ -29,12 +29,12 @@ export default function App(props) {
 
       let json = await response.json();
 
-      let wordOneRelations = json.wordOneSet;
-      let wordTwoRelations = json.wordTwoSet;
+      let wordOneRelations = json.wordOneList;
+      let wordTwoRelations = json.wordTwoList;
       let firstDegreeWords = json.immediateWords;
       console.log(firstDegreeWords)
-      setWordOneList([...wordOneRelations]);
-      setWordTwoList([...wordTwoRelations]);
+      setWordOneList(wordOneRelations);
+      setWordTwoList(wordTwoRelations);
       setFirstDegreeWords(firstDegreeWords)
       } catch(error) {
       console.error(error)
@@ -43,7 +43,7 @@ export default function App(props) {
 
   const goBackHandler = ()=> {
     setFirstWord(''); 
-    setWordTwo(''); }
+    setWordTwo(''); };
 
   let startScreen = <Start onPressHandler={onGoHandler}/>
   let wordsScreen = <FoundWords onPressHandler={goBackHandler}
