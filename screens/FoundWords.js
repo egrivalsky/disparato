@@ -4,11 +4,14 @@ import Header from "../components/Header";
 
 
 const FoundWords = (props) => {
-    
+
     const w1 = props.w1;
     const w2 = props.w2;
 
     const relatedWordsLists = {
+        "wordOne": w1,
+        "wordTwo": w2,
+        "immediateWords": props.disparato,
         "wordOneList": props.w1List,
         "wordTwoList": props.w2List
     } 
@@ -17,7 +20,7 @@ const FoundWords = (props) => {
     let [wordTwoImmediateRelations, setWordTwoImmediateRelations] = useState([]);
 
     const goDeeperPressHandler = async () => {
-        console.log('1')
+
         try { 
             // relatedWordsListsString = JSON.stringify(relatedWordsLists)            
             let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
@@ -28,20 +31,15 @@ const FoundWords = (props) => {
                 },
             body: JSON.stringify(relatedWordsLists)
           });
-            console.log('2')
-            // let json = await response.json();
-            // console.log(json.wordOne)
-            console.log('3')
+            let data = await response.json();
+            console.log(JSON.stringify(data))
             // console.log(json)
-            console.log('4')
             // let firstDegreeWords = json.immediateWords
             // console.log(firstDegreeWords)
             // setAllWords(firstDegreeWords)
             } catch(error) {
-            console.log('5')
             console.error(error.message)
             }
-            console.log('6')
           };
     
     return (

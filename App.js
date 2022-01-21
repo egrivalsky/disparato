@@ -15,13 +15,14 @@ export default function App(props) {
   let [firstDegreeWords, setFirstDegreeWords] = useState([])
   let [wordOneList, setWordOneList] = useState([]);
   let [wordTwoList, setWordTwoList] = useState([]);
+  let [goDeeperList1, setGoDeeperList1] = useState([])
+  let [goDeeperList2, setGoDeeperList2] = useState([])
 
 
   const onGoHandler = async (selectedWordOne, selectedWordTwo)=> { 
 
     setFirstWord(selectedWordOne); 
     setWordTwo(selectedWordTwo);
-
 
     try { 
 
@@ -32,13 +33,20 @@ export default function App(props) {
       let wordOneRelations = json.wordOneList;
       let wordTwoRelations = json.wordTwoList;
       let firstDegreeWords = json.immediateWords;
+      let deeperList1 = json.goDeeperList1;
+      let deeperList2 = json.goDeeperList2;
+
       console.log(firstDegreeWords)
       setWordOneList(wordOneRelations);
       setWordTwoList(wordTwoRelations);
       setFirstDegreeWords(firstDegreeWords)
+      setGoDeeperList1([...deeperList1])
+      setGoDeeperList2([...deeperList2])
+
       } catch(error) {
       console.error(error)
       }
+
     };
 
   const goBackHandler = ()=> {
@@ -50,8 +58,8 @@ export default function App(props) {
   w1={firstWord} 
   w2={wordTwo}
   disparato={firstDegreeWords}
-  w1List={wordOneList}
-  w2List={wordTwoList}
+  w1List={goDeeperList1}
+  w2List={goDeeperList2}
   />;
 
   let content = startScreen;
