@@ -32,7 +32,14 @@ const FoundWords = (props) => {
             body: JSON.stringify(relatedWordsLists)
           });
             let data = await response.json();
-            console.log(JSON.stringify(data))
+            // console.log(JSON.stringify(data))
+            // console.log("computed")
+
+            data.map(result => {
+                keyWord = Object.keys(result)
+                key={keyWord}
+                console.log(`${w1} ---> ${result[keyWord]['wordOneParent']} ---> ${keyWord}  <--- ${result[keyWord]['wordTwoParent']} <--- ${w2} \n`)
+            })
             // console.log(json)
             // let firstDegreeWords = json.immediateWords
             // console.log(firstDegreeWords)
