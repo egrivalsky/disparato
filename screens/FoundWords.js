@@ -22,14 +22,17 @@ const FoundWords = (props) => {
     const goDeeperPressHandler = async () => {
 
         try { 
-            // relatedWordsListsString = JSON.stringify(relatedWordsLists)            
+            console.log(props.w1List);
+            console.log(props.w2List);
+            // relatedWordsListsString = JSON.stringify(relatedWordsLists) 
+            console.log(JSON.stringify(relatedWordsLists));           
             let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
                 },
-            body: JSON.stringify(relatedWordsLists)
+                body: JSON.stringify(relatedWordsLists)
           });
             let data = await response.json();
             // console.log(JSON.stringify(data))
