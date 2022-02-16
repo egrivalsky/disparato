@@ -25,7 +25,6 @@ export default function App(props) {
     setWordTwo(selectedWordTwo);
 
     try { 
-
       let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
 
       let json = await response.json();
