@@ -25,23 +25,23 @@ const WordMapModal = (props) => {
                             }}
                             >
                     <View style={styles.modalView}>
-                        <Text style={styles.word}>
+                        <Text style={styles.modalText}>
                             {props.w1}
                         </Text>
                         <FontAwesome5 name="arrow-circle-down" size={24} color="black" />
-                        <Text style={styles.word}>
+                        <Text style={styles.modalText}>
                             {props.w1Parent}
                         </Text>
                         <FontAwesome5 name="arrow-circle-down" size={24} color="black" />
-                        <Text style={styles.word}>
+                        <Text style={styles.modalText}>
                             {props.keyword}
                         </Text>
                         <FontAwesome5 name="arrow-circle-up" size={24} color="black" />
-                        <Text style={styles.word}>
+                        <Text style={[styles.modalText, styles.parentWordText]}>
                             {props.w2Parent}
                         </Text>
                         <FontAwesome5 name="arrow-circle-up" size={24} color="black" />
-                        <Text style={styles.word}>
+                        <Text style={styles.modalText}>
                             {props.w2}
                         </Text>
 
@@ -65,17 +65,26 @@ const WordMapModal = (props) => {
 }
 
 const styles = StyleSheet.create({
-    word: {
+    parentWordText: {
+        textAlign: "center"
+    },
+    modalText: {
         color: "black",
+        fontSize: 32,
+        paddingHorizontal: 32,
+        marginVertical: 10,
+    },
+    word: {
+        color: "white",
         fontSize: 22,
         paddingHorizontal: 40,
     },
     wordCard: {
         width:'100%',
-        backgroundColor: 'skyblue',
+        backgroundColor: 'blue',
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 2,
+        margin: 0,
         borderRadius: 25,
     },
 

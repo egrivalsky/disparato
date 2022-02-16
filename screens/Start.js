@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Button, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, Button, TextInput, Keyboard, TouchableWithoutFeedback, Linking, Text } from 'react-native';
 import Header from '../components/Header'
 
 const Start = (props) => {
@@ -42,8 +42,8 @@ const Start = (props) => {
   }
 
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
-        <View style={styles.screen}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+      <View style={styles.screen}>
         <Header />
 
         <View style={styles.buttonContainer}>
@@ -60,11 +60,16 @@ const Start = (props) => {
             </TextInput>
 
             <Button title="Go!" onPress={goButtonHandler}></Button>
-            {/* <Button title="Check the 'Net" onPress={netHandler}></Button>  */}
         </View>
-        
+
+        <View style={styles.footer}>
+          <Text onPress={()=> Linking.openURL('http://disparato.erikgrivalsky.com')} style={styles.footerText}>
+            About Disparato
+          </Text>
+        </View>
 
       </View>
+
     </TouchableWithoutFeedback>
   );
     }
@@ -94,6 +99,18 @@ const Start = (props) => {
         borderWidth: 3,
         backgroundColor: 'white',
 
+      },
+      footer: {
+        // alignItems: "flex-end",
+        position: "absolute",
+        bottom: 10,
+        height: 32,
+        
+      },
+      footerText: {
+        fontSize: 22,
+        margin: 0,
+        padding: 0
       }
 
 

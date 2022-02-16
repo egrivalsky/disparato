@@ -55,7 +55,12 @@ export default function App(props) {
 
   const goBackHandler = ()=> {
     setFirstWord(''); 
-    setWordTwo(''); };
+    setWordTwo(''); 
+    setTwoDegreeData(null)};
+
+  const goBackToFoundWordsHandler = ()=> {  
+    setTwoDegreeData(null);
+  };
 
   // const goDeepHandler = ()=> {
   //   setGoingDeeper(true)
@@ -93,7 +98,7 @@ export default function App(props) {
   }
 
   if (firstWord != '' && wordTwo != '' && twoDegreeData != null) {
-    content = <TwoDegreeWords wordOne={firstWord} wordTwo={wordTwo} data={twoDegreeData} />
+    content = <TwoDegreeWords wordOne={firstWord} wordTwo={wordTwo} data={twoDegreeData} onPressHandler={goBackHandler} goBackToFoundWordsHandler={goBackToFoundWordsHandler}/>
   }
   
 

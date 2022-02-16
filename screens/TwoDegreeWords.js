@@ -46,12 +46,17 @@ const TwoDegreeWords = (props) => {
 
       </FlatList>
     </View>
+    <View style={styles.buttonsContainer} >
+        <Button title="[ go back ]" style={styles.button} onPress={()=>{props.goBackToFoundWordsHandler()}} />              
+        <Button title="[ start over ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
+
+    </View>
   </View>
   )}
 
   const styles = StyleSheet.create({
 
-    listHeadinContainer: {
+    listHeadingContainer: {
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -70,9 +75,7 @@ const TwoDegreeWords = (props) => {
         paddingVertical: 10,
 
     },
-    scrollView: {
-        paddingHorizontal: 20,
-    },
+
     word: {
         fontSize: 22,
         paddingHorizontal: 40,
@@ -102,21 +105,7 @@ const TwoDegreeWords = (props) => {
       marginTop: 22
 
       },
-    modalView: {
-      margin: 20,
-      backgroundColor: "white",
-      borderRadius: 20,
-      padding: 35,
-      alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-          width: 0,
-          height: 2
-      },
-      shadowOpacity: .25,
-      shadowRadius: 4,
-      elevation: 5
-  },
+
 })
 
 
