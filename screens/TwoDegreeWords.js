@@ -28,10 +28,11 @@ const TwoDegreeWords = (props) => {
 
         {twoDegData.map(item => {
            const thisWord = Object.keys(item).join();
-           console.log(thisWord);
            const wordOneParent = item[thisWord]["wordOneParent"].join();
+          //  const wordOneParent = "crystal, faces, tooth"
            const wordTwoParent = item[thisWord]["wordTwoParent"].join();
-           return(<WordMapModal key={thisWord} w1={w1} w2={w2} keyword={thisWord} w1Parent={wordOneParent} w2Parent={wordTwoParent}></WordMapModal>)
+           console.log(typeof wordOneParent);
+           return(<WordMapModal key={thisWord} w1={w1} w2={w2} keyword={thisWord} w1Parent={wordOneParent.replace(/,/g, ' | ')} w2Parent={wordTwoParent.replace(/,/g, ' | ')}></WordMapModal>)
            
 })}
 
