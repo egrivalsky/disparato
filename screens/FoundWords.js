@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import {Text, ScrollView, View, StyleSheet, Button} from "react-native"
+import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert} from "react-native"
 import Header from "../components/Header";
+import WordMapModal from "../components/WordMapModal";
 
 
 const FoundWords = (props) => {
-
     const w1 = props.w1;
     const w2 = props.w2;
 
@@ -19,20 +19,38 @@ const FoundWords = (props) => {
     let [wordOneImmediateRelations, setWordOneImmediateRelations] = useState([]);
     let [wordTwoImmediateRelations, setWordTwoImmediateRelations] = useState([]);
 
-    const goDeeperPressHandler = async () => {
 
+    const goDeeperPressHandler = async () => {
+        // props.onGoDeepHandler();
+        console.log("Searching...")
         try { 
-            // relatedWordsListsString = JSON.stringify(relatedWordsLists)            
+            // console.log(props.w1List);
+            // console.log(props.w2List);
+            // relatedWordsListsString = JSON.stringify(relatedWordsLists) 
+            // console.log(JSON.stringify(relatedWordsLists));        
             let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
                 },
-            body: JSON.stringify(relatedWordsLists)
+                body: JSON.stringify(relatedWordsLists)
           });
             let data = await response.json();
-            console.log(JSON.stringify(data))
+            // data = JSON.stringify(data);
+            // data.map(result => {
+            //     keyWord = Object.keys(result)
+            //     key={keyWord}
+            //     console.log(`${w1} ---> ${result[keyWord]['wordOneParent']} ---> ${keyWord}  <--- ${result[keyWord]['wordTwoParent']} <--- ${w2} \n`)
+            // })
+            
+            props.updateTwoDegData(data);
+            console.log("line 48 FoundWords:")
+            console.log(typeof data)
+            // console.log(JSON.stringify(data))
+            // console.log("computed")
+
+
             // console.log(json)
             // let firstDegreeWords = json.immediateWords
             // console.log(firstDegreeWords)
@@ -54,13 +72,25 @@ const FoundWords = (props) => {
         </View>
 
         <View style={styles.list}>
-        <ScrollView style={styles.scrollView}>
-            {props.disparato.map(word => 
-            <View key={word} style={styles.wordCard}>
-               <Text style={styles.word}>{word}</Text>
-            </View>
-            )}
-        </ScrollView>
+            <ScrollView style={styles.scrollView}>
+                {props.disparato.map(word => 
+                    <View key={word} style={styles.wordCard}>
+                            <Text style={styles.word}>{word}</Text>
+                    </View>
+                )}
+            </ScrollView>
+        <>{/* <View style={styles.list}>
+            <ScrollView style={styles.scrollView}>
+                {data.map(result => {
+                keyword = Objects.keys(result);
+                <View key={keyword} style={styles.wordCard}>
+                    <Text>{keyWord}</Text>
+                </View>
+            }) 
+        }
+            </ScrollView> */}</>
+        
+ 
         </View>
 
         <View style={styles.buttonsContainer}>                
@@ -117,13 +147,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 20,
     },
-    button: {
-
-    },
+    
     screen: {
         flex: 1,
-        alignItems: 'center',
-        // justifyContent: 'space-between'
+        alignItems: 'center'
 
       }
 })

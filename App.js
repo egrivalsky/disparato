@@ -1,10 +1,13 @@
 import { setStatusBarNetworkActivityIndicatorVisible, StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native'
-import Manual from './screens/Manual';
+import TwoDegreeWords from './screens/TwoDegreeWords';
 import Start from './screens/Start';
 import FoundWords from './screens/FoundWords';
 import Test from './components/Test'
+import TutorialModal from './components/TutorialModal';
+
+import WordMapModal from './components/WordMapModal';
 
 
 export default function App(props) {
@@ -17,6 +20,8 @@ export default function App(props) {
   let [wordTwoList, setWordTwoList] = useState([]);
   let [goDeeperList1, setGoDeeperList1] = useState([])
   let [goDeeperList2, setGoDeeperList2] = useState([])
+  // let [goingDeeper, setGoingDeeper] = useState(false)
+  let [twoDegreeData, setTwoDegreeData] = useState(null)
 
 
   const onGoHandler = async (selectedWordOne, selectedWordTwo)=> { 
@@ -25,7 +30,6 @@ export default function App(props) {
     setWordTwo(selectedWordTwo);
 
     try { 
-
       let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
 
       let json = await response.json();
@@ -36,7 +40,7 @@ export default function App(props) {
       let deeperList1 = json.goDeeperList1;
       let deeperList2 = json.goDeeperList2;
 
-      console.log(firstDegreeWords)
+      // console.log(firstDegreeWords)
       setWordOneList(wordOneRelations);
       setWordTwoList(wordTwoRelations);
       setFirstDegreeWords(firstDegreeWords)
@@ -53,26 +57,53 @@ export default function App(props) {
     setFirstWord(''); 
     setWordTwo(''); };
 
-  let startScreen = <Start onPressHandler={onGoHandler}/>
+  // const goDeepHandler = ()=> {
+  //   setGoingDeeper(true)
+  // }
+
+  const twoDegWords = data => {
+    // console.log(data)
+    // console.log(data)
+    setTwoDegreeData(data)
+    console.log("App line 65")
+
+    // setGoingDeeper(true);
+    // data.map(result => {
+    //   keyWord = Object.keys(result)
+    //   key={keyWord}
+    //   console.log(`${firstWord} ---> ${result[keyWord]['wordOneParent']} ---> ${keyWord}  <--- ${result[keyWord]['wordTwoParent']} <--- ${wordTwo} \n`)
+  // })
+  }
+
+  let startScreen = <Start onPressHandler={onGoHandler}/>;
   let wordsScreen = <FoundWords onPressHandler={goBackHandler}
   w1={firstWord} 
   w2={wordTwo}
   disparato={firstDegreeWords}
   w1List={goDeeperList1}
   w2List={goDeeperList2}
+  // onGoDeepHandler={goDeepHandler}
+  updateTwoDegData={twoDegWords}
   />;
 
   let content = startScreen;
 
-  if (firstWord != '' && wordTwo != '') {
+  if (firstWord != '' && wordTwo != '' && twoDegreeData == null) {
     content = wordsScreen;
   }
+
+  if (firstWord != '' && wordTwo != '' && twoDegreeData != null) {
+    content = <TwoDegreeWords wordOne={firstWord} wordTwo={wordTwo} data={twoDegreeData} />
+  }
+  
 
   // console.log('Word One: ' + firstWord + ' Word Two: ' + wordTwo)
 
   return (
     <View style={styles.screen}>
       {content}
+      {/* <WordMapModal /> */}
+      {/* <TwoDegreeWords /> */}
     </View>
 
   );
