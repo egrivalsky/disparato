@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert} from "react-native"
+import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert, FlatList} from "react-native"
 import Header from "../components/Header";
 import WordMapModal from "../components/WordMapModal";
 
@@ -12,6 +12,7 @@ const TwoDegreeWords = (props) => {
   const [modalVisible, setModalVisible] = useState(false)
   const w1 = props.wordOne
   const w2 = props.wordTwo
+  const twoDegArray=[]
   return(
     <View style={styles.screen}>
     <Header />
@@ -24,19 +25,25 @@ const TwoDegreeWords = (props) => {
     </View>
 
     <View style={styles.list}>
-      <ScrollView style={styles.scrollView}>
 
-        {twoDegData.map(item => {
+      {twoDegData.map(item => {
            const thisWord = Object.keys(item).join();
            const wordOneParent = item[thisWord]["wordOneParent"].join();
-          //  const wordOneParent = "crystal, faces, tooth"
            const wordTwoParent = item[thisWord]["wordTwoParent"].join();
-           console.log(typeof wordOneParent);
-           return(<WordMapModal key={thisWord} w1={w1} w2={w2} keyword={thisWord} w1Parent={wordOneParent.replace(/,/g, ' | ')} w2Parent={wordTwoParent.replace(/,/g, ' | ')}></WordMapModal>)
-           
+           twoDegArray.push({"thisWord": thisWord, "wordOneParent": wordOneParent, "wordTwoParent": wordTwoParent});
 })}
+      <FlatList data={Object.keys(twoDegArray)} 
+        renderItem={({ item }) => 
+          <WordMapModal key={twoDegArray[item].thisWord} 
+                        w1={w1} 
+                        w2={w2} 
+                        keyword={twoDegArray[item].thisWord} 
+                        w1Parent={twoDegArray[item].wordOneParent.replace(/,/g, ' | ')} 
+                        w2Parent={twoDegArray[item].wordTwoParent.replace(/,/g, ' | ')}>
 
-      </ScrollView>
+          </WordMapModal>}>
+
+      </FlatList>
     </View>
   </View>
   )}
