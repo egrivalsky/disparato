@@ -41,7 +41,8 @@ const TwoDegreeWords = (props) => {
                         w1Parent={twoDegArray[item].wordOneParent.replace(/,/g, ' | ')} 
                         w2Parent={twoDegArray[item].wordTwoParent.replace(/,/g, ' | ')}>
 
-          </WordMapModal>}>
+          </WordMapModal>} 
+          keyExtractor={(item, index) => index.toString()}>
 
       </FlatList>
     </View>
