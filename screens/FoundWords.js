@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert} from "react-native"
 import Header from "../components/Header";
 import WordMapModal from "../components/WordMapModal";
+import LoadingModal from "../components/LoadingModal";
 
 
 const FoundWords = (props) => {
@@ -18,11 +19,14 @@ const FoundWords = (props) => {
 
     let [wordOneImmediateRelations, setWordOneImmediateRelations] = useState([]);
     let [wordTwoImmediateRelations, setWordTwoImmediateRelations] = useState([]);
-
+    let [modalVisible, setModalVisible] = useState(false)
+    const showModal = ()=> {setModalVisible(true)}
 
     const goDeeperPressHandler = async () => {
         // props.onGoDeepHandler();
+        showModal()
         console.log("Searching...")
+        // Alert.alert("Searching...", "This can take a little while.")
         try { 
             // console.log(props.w1List);
             // console.log(props.w2List);
@@ -45,8 +49,7 @@ const FoundWords = (props) => {
             // })
             
             props.updateTwoDegData(data);
-            console.log("line 48 FoundWords:")
-            console.log(typeof data)
+
             // console.log(JSON.stringify(data))
             // console.log("computed")
 
@@ -62,6 +65,7 @@ const FoundWords = (props) => {
     
     return (
     <View style={styles.screen}>
+        <LoadingModal modalVisible={modalVisible}/>
         <Header />
         <View style={styles.listHeadingContainer}>
             <Text style={styles.listHeading}>
@@ -106,16 +110,19 @@ export default FoundWords;
 
 const styles = StyleSheet.create({
 
-    listHeadinContainer: {
+    listHeadingContainer: {
         justifyContent: 'center',
         alignItems: 'center',
+
     },
 
     listHeading: {
-        fontSize: 24,   
+        fontSize: 24,
+        fontFamily: 'tinos-regular'
     },
     searchedWord: {
         fontSize: 28,
+        fontFamily: 'tinos-regular'
     },
 
     list: {
@@ -131,6 +138,7 @@ const styles = StyleSheet.create({
     word: {
         fontSize: 22,
         paddingHorizontal: 40,
+        fontFamily: 'tinos-regular',
     },
     wordCard: {
         width:'100%',
@@ -147,7 +155,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 20,
     },
-    
+
     screen: {
         flex: 1,
         alignItems: 'center'

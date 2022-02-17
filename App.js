@@ -1,18 +1,28 @@
 import { setStatusBarNetworkActivityIndicatorVisible, StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native'
 import TwoDegreeWords from './screens/TwoDegreeWords';
 import Start from './screens/Start';
 import FoundWords from './screens/FoundWords';
-import Test from './components/Test'
-import TutorialModal from './components/TutorialModal';
+import ErrorScreen from './screens/ErrorScreen';
+import AppLoading from 'expo-app-loading';
+import * as Font from 'expo-font';
 
-import WordMapModal from './components/WordMapModal';
-
+const fetchFonts = () => {
+  return Font.loadAsync({
+    'tinos-regular': require('./assets/fonts/Tinos-Regular.ttf'),
+    'tinos-bold': require('./assets/fonts/Tinos-Bold.ttf'),
+  });
+};
 
 export default function App(props) {
 
+
   // let [ screenShown, setScreenShown ] = useState(startScreen);
+
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+
   let [ firstWord, setFirstWord ] = useState('');
   let [ wordTwo, setWordTwo ] = useState('');
   let [firstDegreeWords, setFirstDegreeWords] = useState([])
@@ -20,9 +30,18 @@ export default function App(props) {
   let [wordTwoList, setWordTwoList] = useState([]);
   let [goDeeperList1, setGoDeeperList1] = useState([])
   let [goDeeperList2, setGoDeeperList2] = useState([])
+  // let [showLoadingScreen, setShowLoadingScreen] = useState(false)
+
   // let [goingDeeper, setGoingDeeper] = useState(false)
   let [twoDegreeData, setTwoDegreeData] = useState(null)
 
+  if (!dataLoaded) {
+    return <AppLoading 
+    startAsync={fetchFonts}
+    onFinish={()=>setDataLoaded(true)}
+    onError={(err) => console.log('App.js Line 34: ' + err)}
+    />
+  }
 
   const onGoHandler = async (selectedWordOne, selectedWordTwo)=> { 
 
@@ -63,7 +82,7 @@ export default function App(props) {
   };
 
   // const goDeepHandler = ()=> {
-  //   setGoingDeeper(true)
+  //   setShowLoadingScreen(true)
   // }
 
   const twoDegWords = data => {
@@ -91,24 +110,33 @@ export default function App(props) {
   updateTwoDegData={twoDegWords}
   />;
 
-  let content = startScreen;
+  let content
 
-  if (firstWord != '' && wordTwo != '' && twoDegreeData == null) {
+  if (firstWord == '' && wordTwo == '' && twoDegreeData == null) {
+    content = startScreen;
+  }
+
+  else if (firstWord != '' && wordTwo != '' && twoDegreeData == null) {
     content = wordsScreen;
   }
 
-  if (firstWord != '' && wordTwo != '' && twoDegreeData != null) {
+  else if (firstWord != '' && wordTwo != '' && twoDegreeData == null) {
+
+    content = <LoadingScreen />
+  }
+  else if (firstWord != '' && wordTwo != '' && twoDegreeData != null) {
     content = <TwoDegreeWords wordOne={firstWord} wordTwo={wordTwo} data={twoDegreeData} onPressHandler={goBackHandler} goBackToFoundWordsHandler={goBackToFoundWordsHandler}/>
   }
-  
+  else {
+    content = <ErrorScreen onPressHandler={goBackHandler}/>
+  }
 
   // console.log('Word One: ' + firstWord + ' Word Two: ' + wordTwo)
 
   return (
     <View style={styles.screen}>
       {content}
-      {/* <WordMapModal /> */}
-      {/* <TwoDegreeWords /> */}
+    {/* <ErrorScreen /> */}
     </View>
 
   );
@@ -116,7 +144,7 @@ export default function App(props) {
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1
+    flex: 1,
   }
 })
 

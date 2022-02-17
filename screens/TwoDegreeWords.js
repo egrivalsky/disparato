@@ -47,8 +47,8 @@ const TwoDegreeWords = (props) => {
       </FlatList>
     </View>
     <View style={styles.buttonsContainer} >
-        <Button title="[ go back ]" style={styles.button} onPress={()=>{props.goBackToFoundWordsHandler()}} />              
-        <Button title="[ start over ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
+        <Button title="[   go   back   ]" onPress={()=>{props.goBackToFoundWordsHandler()}} />              
+        <Button title="[ start over ]" onPress={()=>{props.onPressHandler()}} />
 
     </View>
   </View>
@@ -62,16 +62,19 @@ const TwoDegreeWords = (props) => {
     },
 
     listHeading: {
-        fontSize: 24,   
+        fontSize: 24,
+        fontFamily: 'tinos-regular',
     },
+
     searchedWord: {
         fontSize: 28,
+        fontFamily: 'tinos-regular',
     },
 
     list: {
         width: '100%',
         alignItems: 'center',
-        height: '70%',
+        height: '65%',
         paddingVertical: 10,
 
     },
@@ -79,6 +82,7 @@ const TwoDegreeWords = (props) => {
     word: {
         fontSize: 22,
         paddingHorizontal: 40,
+
     },
     wordCard: {
         width:'100%',
@@ -87,6 +91,7 @@ const TwoDegreeWords = (props) => {
         justifyContent: 'center',
         margin: 2,
         borderRadius: 25,
+
     },
 
     buttonsContainer: {

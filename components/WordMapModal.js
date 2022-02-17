@@ -33,7 +33,7 @@ const WordMapModal = (props) => {
                             {props.w1Parent}
                         </Text>
                         <FontAwesome5 name="arrow-circle-down" size={24} color="black" />
-                        <Text style={styles.modalText}>
+                        <Text style={[styles.modalText, styles.keywordText]}>
                             {props.keyword}
                         </Text>
                         <FontAwesome5 name="arrow-circle-up" size={24} color="black" />
@@ -65,6 +65,9 @@ const WordMapModal = (props) => {
 }
 
 const styles = StyleSheet.create({
+    keywordText: {
+        fontFamily: 'tinos-bold',
+    },
     parentWordText: {
         textAlign: "center"
     },
@@ -73,11 +76,13 @@ const styles = StyleSheet.create({
         fontSize: 32,
         paddingHorizontal: 32,
         marginVertical: 10,
+        fontFamily: 'tinos-regular',
     },
     word: {
         color: "white",
-        fontSize: 22,
+        fontSize: 24,
         paddingHorizontal: 40,
+        fontFamily: 'tinos-regular',
     },
     wordCard: {
         width:'100%',
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
+        marginTop: 10
     },
     modalView: {
         width: "90%",

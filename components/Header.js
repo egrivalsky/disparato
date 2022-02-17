@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';      
 import { View, StyleSheet, Text } from 'react-native';
 
 const Header = (props) => {
@@ -24,6 +24,7 @@ const Header = (props) => {
 const styles = StyleSheet.create({
 
     disparato: {
+        fontFamily: 'tinos-bold',
         fontSize: 36,
         color: 'black'
     },

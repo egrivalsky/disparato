@@ -47,19 +47,19 @@ const Start = (props) => {
         <Header />
 
         <View style={styles.buttonContainer}>
-            <TextInput placeholder="First Word" 
+            <TextInput placeholder="First word" 
             style = {styles.inputBox} 
             value={selectedWordOne} 
             onChangeText={wordOneHandler}>
             </TextInput>
 
-            <TextInput placeholder="Second Word" 
+            <TextInput placeholder="Second word" 
             style = {styles.inputBox} 
             value={selectedWordTwo} 
             onChangeText={wordTwoHandler}>
             </TextInput>
 
-            <Button title="Go!" onPress={goButtonHandler}></Button>
+            <Button title="Go." onPress={goButtonHandler}></Button>
         </View>
 
         <View style={styles.footer}>
@@ -79,7 +79,9 @@ const Start = (props) => {
         flex: 1,
         alignItems: 'center',
       },
-      
+      button: {
+        fontFamily: 'tinos-regular',
+      },
       buttonContainer: {
         marginVertical: 150,
         paddingTop: 40,
@@ -87,7 +89,9 @@ const Start = (props) => {
         width: '80%',
         backgroundColor: 'lavender',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        fontFamily: 'tinos-regular'
+        
 
       },
       inputBox: {
@@ -98,10 +102,10 @@ const Start = (props) => {
         borderColor: "black",
         borderWidth: 3,
         backgroundColor: 'white',
+        fontFamily: 'tinos-regular',
 
       },
       footer: {
-        // alignItems: "flex-end",
         position: "absolute",
         bottom: 10,
         height: 32,
@@ -109,6 +113,7 @@ const Start = (props) => {
       },
       footerText: {
         fontSize: 22,
+        fontFamily: 'tinos-regular',
         margin: 0,
         padding: 0
       }
