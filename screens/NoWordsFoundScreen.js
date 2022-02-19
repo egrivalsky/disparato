@@ -1,14 +1,12 @@
 import React, {useState} from "react";
-import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert} from "react-native"
+import {Text, View, StyleSheet, Alert} from "react-native"
 import Header from "../components/Header";
-import LoadingModal from "../components/LoadingModal";
 import ActionButton from "../components/ActionButton";
 import colors from '../constants/colors';
 
 const NoWordsFoundScreen = (props) => {
     const w1 = props.w1;
     const w2 = props.w2;
-
     const relatedWordsLists = {
         "wordOne": w1,
         "wordTwo": w2,
@@ -17,12 +15,14 @@ const NoWordsFoundScreen = (props) => {
         "wordTwoList": props.w2List
     } 
 
-    let [wordOneImmediateRelations, setWordOneImmediateRelations] = useState([]);
-    let [wordTwoImmediateRelations, setWordTwoImmediateRelations] = useState([]);
-    let [loadingDeepSearch, setLoadingDeepSearch] = useState(false)
-
     const goDeeperPressHandler = async () => {
-        setLoadingDeepSearch(true)
+
+        Alert.alert("Please be patient", "This can take a while, but it will speed up as more people use the app",
+        [
+            {text: "okay",
+            style: "cancel",
+        }
+        ])
         console.log("Searching...")
         try { 
        
@@ -46,7 +46,6 @@ const NoWordsFoundScreen = (props) => {
 
     return (
     <View style={styles.screen}>
-        <LoadingModal modalVisible={loadingDeepSearch}/>
         <Header />
         <View style={styles.listHeadingContainer}>
             <Text style={styles.listHeading}>

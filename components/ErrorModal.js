@@ -15,10 +15,7 @@ const ErrorModal = (props) => {
                 animationType="fade"
                 transparent={true}
                 visible={modalVisible}
-                // onRequestClose={() => {
-                //     Alert.alert("You closed the modal.");
-                //     setModalVisible(!modalVisible);
-                // }}                
+              
             >
 
                 <View style={styles.centeredView}>

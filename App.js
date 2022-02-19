@@ -1,4 +1,3 @@
-import { setStatusBarNetworkActivityIndicatorVisible, StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native'
 import TwoDegreeWordsScreen from './screens/TwoDegreeWordsScreen';
@@ -18,23 +17,18 @@ const fetchFonts = () => {
 
 export default function App(props) {
 
-  const [dataLoaded, setDataLoaded] = useState(false);
-
-
+  let [dataLoaded, setDataLoaded] = useState(false);
   let [ firstWord, setFirstWord ] = useState('');
   let [ wordTwo, setWordTwo ] = useState('');
   let [firstDegreeWords, setFirstDegreeWords] = useState([])
-  let [wordOneList, setWordOneList] = useState([]);
-  let [wordTwoList, setWordTwoList] = useState([]);
+  // let [wordOneList, setWordOneList] = useState([]);
+  // let [wordTwoList, setWordTwoList] = useState([]);
   let [goDeeperList1, setGoDeeperList1] = useState([])
   let [goDeeperList2, setGoDeeperList2] = useState([])
   let [error, setError] = useState(false)
   let [errorMessage, setErrorMessage] = useState('')
+  let [modalVisibility, setModalVisibility] = useState(false)
   let [nothingFound, setNothingFound] = useState(false)
-
-  // let [showLoadingScreen, setShowLoadingScreen] = useState(false)
-
-  // let [goingDeeper, setGoingDeeper] = useState(false)
   let [twoDegreeData, setTwoDegreeData] = useState(null)
 
   if (!dataLoaded) {
@@ -49,6 +43,7 @@ export default function App(props) {
 
     setFirstWord(selectedWordOne); 
     setWordTwo(selectedWordTwo);
+    setModalVisibility(false)
 
     try { 
       let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
@@ -69,8 +64,8 @@ export default function App(props) {
       let deeperList1 = json.goDeeperList1;
       let deeperList2 = json.goDeeperList2;
 
-      setWordOneList(wordOneRelations);
-      setWordTwoList(wordTwoRelations);
+      // setWordOneList(wordOneRelations);
+      // setWordTwoList(wordTwoRelations);
       setFirstDegreeWords(firstDegreeWords)
       setGoDeeperList1([...deeperList1])
       setGoDeeperList2([...deeperList2])
@@ -97,6 +92,11 @@ export default function App(props) {
     setTwoDegreeData(data);
   }
 
+  const loadingModalHandler = () => {
+    setModalVisibility(!modalVisibility)
+    console.log("SetModalVisibilty app.js line 103")
+  }
+
   let startScreen = <Start onPressHandler={onGoHandler}/>;
   let wordsScreen = <FoundWords onPressHandler={goBackHandler}
   w1={firstWord} 
@@ -106,6 +106,7 @@ export default function App(props) {
   w1List={goDeeperList1}
   w2List={goDeeperList2}
   updateTwoDegData={twoDegWords}
+  loadingDeepSearch={loadingModalHandler}
   />;
   let twoDegreeWordsScreen = <TwoDegreeWordsScreen wordOne={firstWord} wordTwo={wordTwo} data={twoDegreeData} onPressHandler={goBackHandler} goBackToFoundWordsHandler={goBackToFoundWordsHandler}/>;
   let generalErrorScreen = <GeneralErrorScreen onPressHandler={goBackHandler} message={errorMessage}/>
@@ -153,7 +154,7 @@ export default function App(props) {
 
 const styles = StyleSheet.create({
   screen: {
+    marginTop: 36,
     flex: 1,
   }
 })
-

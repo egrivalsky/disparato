@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert} from "react-native"
 import Header from "../components/Header";
-import LoadingModal from "../components/LoadingModal";
 import ActionButton from "../components/ActionButton";
+import LoadingModal from '../components/LoadingModal';
 import colors from '../constants/colors'
 
 const FoundWords = (props) => {
@@ -17,23 +17,26 @@ const FoundWords = (props) => {
         "wordTwoList": props.w2List
     } 
 
-    let [wordOneImmediateRelations, setWordOneImmediateRelations] = useState([]);
-    let [wordTwoImmediateRelations, setWordTwoImmediateRelations] = useState([]);
-    let [loadingDeepSearch, setLoadingDeepSearch] = useState(false)
-    let [nothingFound, setNothingFound] = useState(props.firstWords)
-    // const showModal = ()=> {setModalVisible(true)}
+    // let [wordOneImmediateRelations, setWordOneImmediateRelations] = useState([]);
+    // let [wordTwoImmediateRelations, setWordTwoImmediateRelations] = useState([]);
+    // let [nothingFound, setNothingFound] = useState(props.firstWords)
+    let [modalVisible, setModalVisible] = useState(false)
+    const showModal = ()=> {setModalVisible(true)}
 
     const goDeeperPressHandler = async () => {
-        // props.onGoDeepHandler();
-        setLoadingDeepSearch(true)
-        setNothingFound(false)
-        console.log("Searching...")
-        // Alert.alert("Searching...", "This can take a little while.")
+
+        showModal();
+
+        // Alert.alert("Please be patient", "This can take a while, but it will speed up as more people use the app",
+        // [
+        //     {text: "okay",
+        //     style: "cancel",
+        // }
+        // ])
+        // console.log("Searching...")
+
         try { 
-            // console.log(props.w1List);
-            // console.log(props.w2List);
-            // relatedWordsListsString = JSON.stringify(relatedWordsLists) 
-            // console.log(JSON.stringify(relatedWordsLists));        
+       
             let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
                 method: 'POST',
                 headers: {
@@ -43,23 +46,9 @@ const FoundWords = (props) => {
                 body: JSON.stringify(relatedWordsLists)
           });
             let data = await response.json();
-            // data = JSON.stringify(data);
-            // data.map(result => {
-            //     keyWord = Object.keys(result)
-            //     key={keyWord}
-            //     console.log(`${w1} ---> ${result[keyWord]['wordOneParent']} ---> ${keyWord}  <--- ${result[keyWord]['wordTwoParent']} <--- ${w2} \n`)
-            // })
-            
+
             props.updateTwoDegData(data);
 
-            // console.log(JSON.stringify(data))
-            // console.log("computed")
-
-
-            // console.log(json)
-            // let firstDegreeWords = json.immediateWords
-            // console.log(firstDegreeWords)
-            // setAllWords(firstDegreeWords)
             } catch(error) {
             console.error(error.message)
             }
@@ -67,7 +56,7 @@ const FoundWords = (props) => {
 
     return (
     <View style={styles.screen}>
-        <LoadingModal modalVisible={loadingDeepSearch}/>
+        <LoadingModal modalVisible={modalVisible}/>
         <Header />
         <View style={styles.listHeadingContainer}>
             <Text style={styles.listHeading}>
@@ -89,7 +78,7 @@ const FoundWords = (props) => {
 
         <View style={styles.buttonsContainer}>
             <View style={styles.button}>                
-            <ActionButton title="[   go   back   ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
+            <ActionButton  title="[   go   back   ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
             </View>
             <View style={styles.button}>
             <ActionButton title="[   go   deep   ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />

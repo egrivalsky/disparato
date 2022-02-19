@@ -1,41 +1,37 @@
 import React, { useState } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
-import { FontAwesome5 } from '@expo/vector-icons'
+import ActionButton from "./ActionButton";
 
 const LoadingModal = (props) => {
-    // const [ modalVisible, setModalVisible ] = useState(false)
-    const modalVisible=props.modalVisible
-
+    let modalVisible = props.modalVisible
 
     return (
-
-        <View style={styles.centeredView} >
+        <View >
 
             <Modal
                 animationType="fade"
                 transparent={true}
                 visible={modalVisible}
-                // onRequestClose={() => {
-                //     Alert.alert("You closed the modal.");
-                //     setModalVisible(!modalVisible);
-                // }}                
             >
 
                 <View style={styles.centeredView}>
 
+
                     <View style={styles.modalView}>
 
-                    <Text style={styles.pleaseWait}>This can take several seconds, but it will get faster the more that people use the app</Text>
-                        
+                        <Text style={styles.pleaseWait}>This can take several seconds, but it will get faster the more that people use the app</Text>
+
+
                     </View>
+
 
                 </View>
             </Modal>
 
         </View>
-    )
 
-}
+
+    )}
 
 const styles = StyleSheet.create({
     pleaseWait: {

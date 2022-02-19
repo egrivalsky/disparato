@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert, FlatList} from "react-native"
+import {Text, View, StyleSheet, FlatList} from "react-native"
 import Header from "../components/Header";
 import WordMapModal from "../components/WordMapModal";
 import ActionButton from "../components/ActionButton";
