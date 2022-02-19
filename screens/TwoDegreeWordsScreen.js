@@ -2,9 +2,10 @@ import React, {useState, useEffect} from "react";
 import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert, FlatList} from "react-native"
 import Header from "../components/Header";
 import WordMapModal from "../components/WordMapModal";
+import ActionButton from "../components/ActionButton";
 
 
-const TwoDegreeWords = (props) => {
+const TwoDegreeWordsScreen = (props) => {
   // const twoDegData = JSON.parse(props.data)
   // console.log("TwoDegData line 9")
   const twoDegData = props.data
@@ -46,11 +47,18 @@ const TwoDegreeWords = (props) => {
 
       </FlatList>
     </View>
-    <View style={styles.buttonsContainer} >
-        <Button title="[   go   back   ]" onPress={()=>{props.goBackToFoundWordsHandler()}} />              
-        <Button title="[ start over ]" onPress={()=>{props.onPressHandler()}} />
-
-    </View>
+    <View style={styles.buttonsContainer}>
+            <View style={styles.button}>                
+            <ActionButton title="[   go   back   ]" onPress={()=>{props.goBackToFoundWordsHandler()}} />     
+            </View>
+            <View style={styles.button}>
+            <ActionButton title="[ start over ]" onPress={()=>{props.onPressHandler()}} />
+            </View>
+        </View>
+    {/* <View style={styles.buttonsContainer} >
+        <ActionButton title="[   go   back   ]" onPress={()=>{props.goBackToFoundWordsHandler()}} />              
+        <ActionButton title="[ start over ]" onPress={()=>{props.onPressHandler()}} />
+    </View> */}
   </View>
   )}
 
@@ -74,7 +82,7 @@ const TwoDegreeWords = (props) => {
     list: {
         width: '100%',
         alignItems: 'center',
-        height: '65%',
+        height: '60%',
         paddingVertical: 10,
 
     },
@@ -93,15 +101,20 @@ const TwoDegreeWords = (props) => {
         borderRadius: 25,
 
     },
-
     buttonsContainer: {
-        height: 100,
-        justifyContent: 'space-around',
+        height: 200, 
+        justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 20,
     },
-    button: {
 
+    // _buttonsContainer: {
+    //     height: 100,
+    //     justifyContent: 'space-around',
+    //     alignItems: 'center',
+    //     paddingBottom: 20,
+    // },
+    button: {
+        margin: 5,
     },
     screen: {
       flex: 1,
@@ -114,4 +127,4 @@ const TwoDegreeWords = (props) => {
 })
 
 
-export default TwoDegreeWords;
+export default TwoDegreeWordsScreen;

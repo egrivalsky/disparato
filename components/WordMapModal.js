@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         margin: 0,
-        borderRadius: 25,
+        borderRadius: 5,
     },
 
     centeredView: {

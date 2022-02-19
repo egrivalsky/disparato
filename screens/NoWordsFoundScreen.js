@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert} from "react-native"
 import Header from "../components/Header";
 import LoadingModal from "../components/LoadingModal";
-import ActionButton from "../components/ActionButton";
+import NothingFoundModal from "../components/NothingFoundModal";
 
-const FoundWords = (props) => {
+const NoWordsFoundScreen = (props) => {
     const w1 = props.w1;
     const w2 = props.w2;
 
@@ -19,20 +19,12 @@ const FoundWords = (props) => {
     let [wordOneImmediateRelations, setWordOneImmediateRelations] = useState([]);
     let [wordTwoImmediateRelations, setWordTwoImmediateRelations] = useState([]);
     let [loadingDeepSearch, setLoadingDeepSearch] = useState(false)
-    let [nothingFound, setNothingFound] = useState(props.firstWords)
-    // const showModal = ()=> {setModalVisible(true)}
 
     const goDeeperPressHandler = async () => {
-        // props.onGoDeepHandler();
         setLoadingDeepSearch(true)
-        setNothingFound(false)
         console.log("Searching...")
-        // Alert.alert("Searching...", "This can take a little while.")
         try { 
-            // console.log(props.w1List);
-            // console.log(props.w2List);
-            // relatedWordsListsString = JSON.stringify(relatedWordsLists) 
-            // console.log(JSON.stringify(relatedWordsLists));        
+       
             let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
                 method: 'POST',
                 headers: {
@@ -42,23 +34,10 @@ const FoundWords = (props) => {
                 body: JSON.stringify(relatedWordsLists)
           });
             let data = await response.json();
-            // data = JSON.stringify(data);
-            // data.map(result => {
-            //     keyWord = Object.keys(result)
-            //     key={keyWord}
-            //     console.log(`${w1} ---> ${result[keyWord]['wordOneParent']} ---> ${keyWord}  <--- ${result[keyWord]['wordTwoParent']} <--- ${w2} \n`)
-            // })
+
             
             props.updateTwoDegData(data);
 
-            // console.log(JSON.stringify(data))
-            // console.log("computed")
-
-
-            // console.log(json)
-            // let firstDegreeWords = json.immediateWords
-            // console.log(firstDegreeWords)
-            // setAllWords(firstDegreeWords)
             } catch(error) {
             console.error(error.message)
             }
@@ -77,33 +56,38 @@ const FoundWords = (props) => {
         </View>
 
         <View style={styles.list}>
-            <ScrollView style={styles.scrollView}>
-                {props.disparato.map(word => 
-                <View key={word} style={styles.wordCard}>
-                    <Text style={styles.word}>{word}</Text>
-                </View>
-                )}
-            </ScrollView>
+            <View style={styles.centeredView} >
+                <Text style={styles.pleaseWait}>No immediately related words found.</Text>
+                <Text style={styles.pleaseWait}>Try the "GO DEEP" button for words related through other words.</Text>
+            </View>
         </View>
-
         <View style={styles.buttonsContainer}>
             <View style={styles.button}>                
-            <ActionButton title="[ go back ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
+            <Button title="[ go back ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
             </View>
             <View style={styles.button}>
-            <ActionButton title="[ go deep ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />
+            <Button title="[ go deep ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />
             </View>
         </View>
-
     </View>
 
 )}
 
 
-export default FoundWords;
+export default NoWordsFoundScreen;
 
 const styles = StyleSheet.create({
-
+    pleaseWait: {
+        fontFamily: 'tinos-regular',
+        fontSize: 24,
+        margin: 5,
+        textAlign: 'center',
+    },
+    centeredView: {
+        alignItems: "center",
+        marginTop: 100,
+        width: '60%',
+    },
     listHeadingContainer: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -112,10 +96,6 @@ const styles = StyleSheet.create({
 
     listHeading: {
         fontSize: 24,
-        fontFamily: 'tinos-regular'
-    },
-    searchedWord: {
-        fontSize: 28,
         fontFamily: 'tinos-regular'
     },
 
@@ -127,26 +107,20 @@ const styles = StyleSheet.create({
 
     },
     scrollView: {
-        paddingHorizontal: 20,
+        padding: 20,
+
     },
     word: {
-        fontSize: 24,
+        fontSize: 22,
         paddingHorizontal: 40,
         fontFamily: 'tinos-regular',
-    },
-    wordCard: {
-        width:'100%',
-        backgroundColor: 'skyblue',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 4,
-        borderRadius: 5,
     },
 
     buttonsContainer: {
         height: 200, 
         justifyContent: 'center',
         alignItems: 'center',
+
     },
     button: {
         margin: 5,

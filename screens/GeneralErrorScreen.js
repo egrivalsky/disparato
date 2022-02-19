@@ -2,7 +2,15 @@ import React from "react";
 import { View, StyleSheet, Linking, Text, Button } from 'react-native';
 import Header from '../components/Header'
 
-const ErrorScreen = (props) => {
+const GeneralErrorScreen = (props) => {
+  
+  let errorMessage
+
+  if (!props.message) {
+    errorMessage = "Something really went wrong."
+  } else {
+    errorMessage = props.message
+  }
    
     return (
 
@@ -11,7 +19,7 @@ const ErrorScreen = (props) => {
 
         <View style={styles.buttonContainer}>
 
-            <Text style={styles.errorMessage}>Something went wrong.</Text>
+            <Text style={styles.errorMessage}>{errorMessage}</Text>
             <Text style={styles.errorMessage}>I'm so sorry.</Text>
 
         </View>
@@ -60,4 +68,4 @@ const ErrorScreen = (props) => {
       
     });
 
-export default ErrorScreen;
+export default GeneralErrorScreen;
