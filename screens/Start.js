@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Button, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, Button, TextInput, Keyboard, TouchableWithoutFeedback, Linking, Text } from 'react-native';
 import Header from '../components/Header'
+import ActionButton from '../components/ActionButton'
 
 const Start = (props) => {
    
   let [ selectedWordOne, setSelectedWordOne ] = useState('')
 
   const wordOneHandler = inputOne => {
-    setSelectedWordOne(inputOne)
+    setSelectedWordOne(inputOne.replace(' ', '').replace(/[0-9]/g, '').toLowerCase())
   }
 
   let [selectedWordTwo, setSelectedWordTwo ] = useState('')
 
   const wordTwoHandler = inputTwo => {
-    setSelectedWordTwo(inputTwo)
+    setSelectedWordOne(inputOne.replace(' ', '').replace(/[0-9]/g, '').toLowerCase())
   }
 
   const goButtonHandler = ()=> {
@@ -42,29 +43,37 @@ const Start = (props) => {
   }
 
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
-        <View style={styles.screen}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+      <View style={styles.screen}>
         <Header />
 
-        <View style={styles.buttonContainer}>
-            <TextInput placeholder="First Word" 
+        <View style={styles.inputContainer}>
+            <TextInput placeholder="first word" 
+            autoCapitalize="none"
             style = {styles.inputBox} 
             value={selectedWordOne} 
             onChangeText={wordOneHandler}>
             </TextInput>
 
-            <TextInput placeholder="Second Word" 
+            <TextInput placeholder="second word" 
+            autoCapitalize="none"
             style = {styles.inputBox} 
             value={selectedWordTwo} 
             onChangeText={wordTwoHandler}>
             </TextInput>
-
-            <Button title="Go!" onPress={goButtonHandler}></Button>
-            {/* <Button title="Check the 'Net" onPress={netHandler}></Button>  */}
+            <View style={styles.button} >
+              <ActionButton title="[ GO ]" onPress={goButtonHandler}></ActionButton>
+            </View>
         </View>
-        
+
+        <View style={styles.footer}>
+          <Text onPress={()=> Linking.openURL('http://disparato.erikgrivalsky.com')} style={styles.footerText}>
+            About Disparato
+          </Text>
+        </View>
 
       </View>
+
     </TouchableWithoutFeedback>
   );
     }
@@ -73,27 +82,48 @@ const Start = (props) => {
       screen: {
         flex: 1,
         alignItems: 'center',
+        backgroundColor: '#eaeaee'
+        // backgroundColor: '#fff9f9'
       },
-      
-      buttonContainer: {
+      button: {
+        fontFamily: 'tinos-regular',
+        marginTop: 40
+      },
+      inputContainer: {
         marginVertical: 150,
-        paddingTop: 40,
-        height: 200,
+        paddingVertical: 30,
+        height: 300,
         width: '80%',
         backgroundColor: 'lavender',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-evenly',
+        fontFamily: 'tinos-regular'
+        
 
       },
       inputBox: {
-        minHeight: 40,
+        minHeight: 60,
         paddingHorizontal: 10,
+        marginTop: 20,
         width: '80%',
         height: '20%',
         borderColor: "black",
         borderWidth: 3,
         backgroundColor: 'white',
+        fontFamily: 'tinos-regular',
+        fontSize:24
 
+      },
+      footer: {
+        bottom: 0,
+        height: 32,
+        
+      },
+      footerText: {
+        fontSize: 22,
+        fontFamily: 'tinos-regular',
+        margin: 0,
+        padding: 0
       }
 
 

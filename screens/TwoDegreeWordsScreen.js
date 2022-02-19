@@ -2,9 +2,10 @@ import React, {useState, useEffect} from "react";
 import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert, FlatList} from "react-native"
 import Header from "../components/Header";
 import WordMapModal from "../components/WordMapModal";
+import ActionButton from "../components/ActionButton";
 
 
-const TwoDegreeWords = (props) => {
+const TwoDegreeWordsScreen = (props) => {
   // const twoDegData = JSON.parse(props.data)
   // console.log("TwoDegData line 9")
   const twoDegData = props.data
@@ -41,40 +42,55 @@ const TwoDegreeWords = (props) => {
                         w1Parent={twoDegArray[item].wordOneParent.replace(/,/g, ' | ')} 
                         w2Parent={twoDegArray[item].wordTwoParent.replace(/,/g, ' | ')}>
 
-          </WordMapModal>}>
+          </WordMapModal>} 
+          keyExtractor={(item, index) => index.toString()}>
 
       </FlatList>
     </View>
+    <View style={styles.buttonsContainer}>
+            <View style={styles.button}>                
+            <ActionButton title="[   go   back   ]" onPress={()=>{props.goBackToFoundWordsHandler()}} />     
+            </View>
+            <View style={styles.button}>
+            <ActionButton title="[ start over ]" onPress={()=>{props.onPressHandler()}} />
+            </View>
+        </View>
+    {/* <View style={styles.buttonsContainer} >
+        <ActionButton title="[   go   back   ]" onPress={()=>{props.goBackToFoundWordsHandler()}} />              
+        <ActionButton title="[ start over ]" onPress={()=>{props.onPressHandler()}} />
+    </View> */}
   </View>
   )}
 
   const styles = StyleSheet.create({
 
-    listHeadinContainer: {
+    listHeadingContainer: {
         justifyContent: 'center',
         alignItems: 'center',
     },
 
     listHeading: {
-        fontSize: 24,   
+        fontSize: 24,
+        fontFamily: 'tinos-regular',
     },
+
     searchedWord: {
         fontSize: 28,
+        fontFamily: 'tinos-regular',
     },
 
     list: {
         width: '100%',
         alignItems: 'center',
-        height: '70%',
+        height: '60%',
         paddingVertical: 10,
 
     },
-    scrollView: {
-        paddingHorizontal: 20,
-    },
+
     word: {
         fontSize: 22,
         paddingHorizontal: 40,
+
     },
     wordCard: {
         width:'100%',
@@ -83,16 +99,22 @@ const TwoDegreeWords = (props) => {
         justifyContent: 'center',
         margin: 2,
         borderRadius: 25,
-    },
 
+    },
     buttonsContainer: {
-        height: 100,
-        justifyContent: 'space-around',
+        height: 200, 
+        justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 20,
     },
-    button: {
 
+    // _buttonsContainer: {
+    //     height: 100,
+    //     justifyContent: 'space-around',
+    //     alignItems: 'center',
+    //     paddingBottom: 20,
+    // },
+    button: {
+        margin: 5,
     },
     screen: {
       flex: 1,
@@ -101,22 +123,8 @@ const TwoDegreeWords = (props) => {
       marginTop: 22
 
       },
-    modalView: {
-      margin: 20,
-      backgroundColor: "white",
-      borderRadius: 20,
-      padding: 35,
-      alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-          width: 0,
-          height: 2
-      },
-      shadowOpacity: .25,
-      shadowRadius: 4,
-      elevation: 5
-  },
+
 })
 
 
-export default TwoDegreeWords;
+export default TwoDegreeWordsScreen;

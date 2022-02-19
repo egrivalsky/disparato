@@ -25,23 +25,23 @@ const WordMapModal = (props) => {
                             }}
                             >
                     <View style={styles.modalView}>
-                        <Text style={styles.word}>
+                        <Text style={styles.modalText}>
                             {props.w1}
                         </Text>
                         <FontAwesome5 name="arrow-circle-down" size={24} color="black" />
-                        <Text style={styles.word}>
+                        <Text style={styles.modalText}>
                             {props.w1Parent}
                         </Text>
                         <FontAwesome5 name="arrow-circle-down" size={24} color="black" />
-                        <Text style={styles.word}>
+                        <Text style={[styles.modalText, styles.keywordText]}>
                             {props.keyword}
                         </Text>
                         <FontAwesome5 name="arrow-circle-up" size={24} color="black" />
-                        <Text style={styles.word}>
+                        <Text style={[styles.modalText, styles.parentWordText]}>
                             {props.w2Parent}
                         </Text>
                         <FontAwesome5 name="arrow-circle-up" size={24} color="black" />
-                        <Text style={styles.word}>
+                        <Text style={styles.modalText}>
                             {props.w2}
                         </Text>
 
@@ -65,25 +65,39 @@ const WordMapModal = (props) => {
 }
 
 const styles = StyleSheet.create({
-    word: {
+    keywordText: {
+        fontFamily: 'tinos-bold',
+    },
+    parentWordText: {
+        textAlign: "center"
+    },
+    modalText: {
         color: "black",
-        fontSize: 22,
+        fontSize: 32,
+        paddingHorizontal: 32,
+        marginVertical: 10,
+        fontFamily: 'tinos-regular',
+    },
+    word: {
+        color: "white",
+        fontSize: 24,
         paddingHorizontal: 40,
+        fontFamily: 'tinos-regular',
     },
     wordCard: {
         width:'100%',
-        backgroundColor: 'skyblue',
+        backgroundColor: 'blue',
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 2,
-        borderRadius: 25,
+        margin: 0,
+        borderRadius: 5,
     },
 
     centeredView: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
+        marginTop: 10
     },
     modalView: {
         width: "90%",
