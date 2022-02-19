@@ -7,7 +7,7 @@ const WordMapModal = (props) => {
 
     return (
 
-        <View style={styles.centeredView} >
+        <View >
 
             <Modal
                 animationType="fade"
@@ -65,6 +65,7 @@ const WordMapModal = (props) => {
 }
 
 const styles = StyleSheet.create({
+
     keywordText: {
         fontFamily: 'tinos-bold',
     },
@@ -89,10 +90,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue',
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 0,
+        margin: 4,
         borderRadius: 5,
     },
-
     centeredView: {
         flex: 1,
         justifyContent: "center",

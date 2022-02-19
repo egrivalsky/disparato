@@ -89,10 +89,10 @@ const FoundWords = (props) => {
 
         <View style={styles.buttonsContainer}>
             <View style={styles.button}>                
-            <ActionButton title="[ go back ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
+            <ActionButton title="[   go   back   ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
             </View>
             <View style={styles.button}>
-            <ActionButton title="[ go deep ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />
+            <ActionButton title="[   go   deep   ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />
             </View>
         </View>
 
@@ -113,9 +113,7 @@ const styles = StyleSheet.create({
     listHeadingContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-
     },
-
     listHeading: {
         fontSize: 24,
         fontFamily: 'tinos-regular'
@@ -124,13 +122,11 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontFamily: 'tinos-regular'
     },
-
     list: {
         width: '100%',
         alignItems: 'center',
         height: '60%',
         paddingVertical: 10,
-
     },
     scrollView: {
         paddingHorizontal: 20,
@@ -148,7 +144,6 @@ const styles = StyleSheet.create({
         margin: 4,
         borderRadius: 5,
     },
-
     buttonsContainer: {
         height: 200, 
         justifyContent: 'center',
