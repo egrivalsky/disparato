@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert} from "react-native"
 import Header from "../components/Header";
 import LoadingModal from "../components/LoadingModal";
-import NothingFoundModal from "../components/NothingFoundModal";
+import colors from '../constants/colors';
 
 const NoWordsFoundScreen = (props) => {
     const w1 = props.w1;
@@ -77,6 +77,11 @@ const NoWordsFoundScreen = (props) => {
 export default NoWordsFoundScreen;
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: colors.background
+      },
     pleaseWait: {
         fontFamily: 'tinos-regular',
         fontSize: 24,
@@ -125,10 +130,4 @@ const styles = StyleSheet.create({
     button: {
         margin: 5,
     },
-
-    screen: {
-        flex: 1,
-        alignItems: 'center'
-
-      }
 })

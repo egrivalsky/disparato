@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Button, TextInput, Keyboard, TouchableWithoutFeedback, Linking, Text } from 'react-native';
+import { View, StyleSheet, TextInput, Keyboard, TouchableWithoutFeedback, Linking, Text, Alert } from 'react-native';
 import Header from '../components/Header'
 import ActionButton from '../components/ActionButton'
+import colors from '../constants/colors'
 
 const Start = (props) => {
    
@@ -14,32 +15,29 @@ const Start = (props) => {
   let [selectedWordTwo, setSelectedWordTwo ] = useState('')
 
   const wordTwoHandler = inputTwo => {
-    setSelectedWordOne(inputOne.replace(' ', '').replace(/[0-9]/g, '').toLowerCase())
+    setSelectedWordTwo(inputTwo.replace(' ', '').replace(/[0-9]/g, '').toLowerCase())
   }
 
   const goButtonHandler = ()=> {
-    // console.log(selectedWordOne);
-    // console.log(selectedWordTwo);
-    props.onPressHandler(selectedWordOne, selectedWordTwo);
+    if (
+      (selectedWordOne.length > 0) && (selectedWordTwo.length > 0)
+      && (
+        (selectedWordOne != selectedWordTwo)
+      )) {
+      props.onPressHandler(selectedWordOne, selectedWordTwo);
+      } else {
+        Alert.alert("Whoops", 
+                    "Please enter two different English words",
+                    [
+                      {
+                        text: "Fine",
+                        style: "cancel",
+                      }
+                    ])
+      }
 
     setSelectedWordOne('');
     setSelectedWordTwo('');
-
-  // const netHandler = async () => {
-  //   try { 
-  //       let response = await fetch('http://192.168.1.184:8000/related_words/puppy/kitten/data.json');
-
-  //       let json = await response.json();
-  //       console.log(json)
-  //       return response 
-
-  //   } catch(error) {
-  //       console.log(error)
-  //   }
-  // }
-    // .then(disparato => console.log('JSON: ' + JSON.stringify(disparato)))
-    // .then(console.log('all done on the front end'))
-    // .catch(error => console.log('ERROR: ' + error.message))
   }
 
     return (
@@ -68,7 +66,7 @@ const Start = (props) => {
 
         <View style={styles.footer}>
           <Text onPress={()=> Linking.openURL('http://disparato.erikgrivalsky.com')} style={styles.footerText}>
-            About Disparato
+            [ about disparato ]
           </Text>
         </View>
 
@@ -82,8 +80,9 @@ const Start = (props) => {
       screen: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#eaeaee'
-        // backgroundColor: '#fff9f9'
+        padding: 10,
+        backgroundColor: colors.background,
+
       },
       button: {
         fontFamily: 'tinos-regular',
@@ -97,8 +96,7 @@ const Start = (props) => {
         backgroundColor: 'lavender',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        fontFamily: 'tinos-regular'
-        
+        fontFamily: 'tinos-regular',
 
       },
       inputBox: {

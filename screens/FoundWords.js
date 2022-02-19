@@ -3,6 +3,7 @@ import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert} fro
 import Header from "../components/Header";
 import LoadingModal from "../components/LoadingModal";
 import ActionButton from "../components/ActionButton";
+import colors from '../constants/colors'
 
 const FoundWords = (props) => {
     const w1 = props.w1;
@@ -103,6 +104,11 @@ const FoundWords = (props) => {
 export default FoundWords;
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: colors.background
+      },
 
     listHeadingContainer: {
         justifyContent: 'center',
@@ -151,10 +157,4 @@ const styles = StyleSheet.create({
     button: {
         margin: 5,
     },
-
-    screen: {
-        flex: 1,
-        alignItems: 'center'
-
-      }
 })

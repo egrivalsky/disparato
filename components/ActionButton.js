@@ -13,7 +13,7 @@ const ActionButton = props => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'grey',
+    backgroundColor: '#939597',
     paddingVertical: 10,
     paddingHorizontal: 30,
     borderRadius: 18

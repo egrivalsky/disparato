@@ -3,6 +3,7 @@ import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert, Fla
 import Header from "../components/Header";
 import WordMapModal from "../components/WordMapModal";
 import ActionButton from "../components/ActionButton";
+import colors from '../constants/colors'
 
 
 const TwoDegreeWordsScreen = (props) => {
@@ -117,12 +118,17 @@ const TwoDegreeWordsScreen = (props) => {
         margin: 5,
     },
     screen: {
-      flex: 1,
-      justifyContent: "flex-start",
-      alignItems: "center",
-      marginTop: 22
-
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: colors.background
       },
+    // screen: {
+    //   flex: 1,
+    //   justifyContent: "flex-start",
+    //   alignItems: "center",
+    //   marginTop: 22
+
+    //   },
 
 })
 

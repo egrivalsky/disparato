@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Linking, Text, Button } from 'react-native';
 import Header from '../components/Header'
+import colors from '../constants/colors'
 
 const GeneralErrorScreen = (props) => {
   
@@ -44,6 +45,7 @@ const GeneralErrorScreen = (props) => {
       screen: {
         flex: 1,
         alignItems: 'center',
+        backgroundColor: colors.background
       },
       errorMessage: {
           fontFamily: 'tinos-regular',
