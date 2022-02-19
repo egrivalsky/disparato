@@ -1,14 +1,15 @@
 import React from "react";
 import { View, StyleSheet, Linking, Text, Button } from 'react-native';
-import Header from '../components/Header'
-import colors from '../constants/colors'
+import Header from '../components/Header';
+import ActionButton from "../components/ActionButton";
+import colors from '../constants/colors';
 
 const GeneralErrorScreen = (props) => {
   
   let errorMessage
 
   if (!props.message) {
-    errorMessage = "Something really went wrong."
+    errorMessage = "Something went wrong."
   } else {
     errorMessage = props.message
   }
@@ -26,7 +27,7 @@ const GeneralErrorScreen = (props) => {
         </View>
 
         <View style={styles.buttonsContainer}>                
-           <Button title="[ start over ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
+           <ActionButton title="[ start over ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
         </View>
 
         <View style={styles.footer}>

@@ -34,7 +34,7 @@ const TwoDegreeWordsScreen = (props) => {
            const wordTwoParent = item[thisWord]["wordTwoParent"].join();
            twoDegArray.push({"thisWord": thisWord, "wordOneParent": wordOneParent, "wordTwoParent": wordTwoParent});
 })}
-      <FlatList data={Object.keys(twoDegArray)} 
+      <FlatList style={styles.scrollView} data={Object.keys(twoDegArray)} 
         renderItem={({ item }) => 
           <WordMapModal key={twoDegArray[item].thisWord} 
                         w1={w1} 
@@ -50,7 +50,7 @@ const TwoDegreeWordsScreen = (props) => {
     </View>
     <View style={styles.buttonsContainer}>
             <View style={styles.button}>                
-            <ActionButton title="[   go   back   ]" onPress={()=>{props.goBackToFoundWordsHandler()}} />     
+            <ActionButton title="[  go  back  ]" onPress={()=>{props.goBackToFoundWordsHandler()}} />     
             </View>
             <View style={styles.button}>
             <ActionButton title="[ start over ]" onPress={()=>{props.onPressHandler()}} />
@@ -64,30 +64,32 @@ const TwoDegreeWordsScreen = (props) => {
   )}
 
   const styles = StyleSheet.create({
-
+    screen: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: colors.background
+      },
     listHeadingContainer: {
         justifyContent: 'center',
         alignItems: 'center',
     },
-
     listHeading: {
         fontSize: 24,
         fontFamily: 'tinos-regular',
     },
-
     searchedWord: {
         fontSize: 28,
         fontFamily: 'tinos-regular',
     },
-
     list: {
         width: '100%',
         alignItems: 'center',
         height: '60%',
         paddingVertical: 10,
-
     },
-
+    scrollView: {
+        paddingHorizontal: 20,
+    },
     word: {
         fontSize: 22,
         paddingHorizontal: 40,
@@ -107,28 +109,9 @@ const TwoDegreeWordsScreen = (props) => {
         justifyContent: 'center',
         alignItems: 'center',
     },
-
-    // _buttonsContainer: {
-    //     height: 100,
-    //     justifyContent: 'space-around',
-    //     alignItems: 'center',
-    //     paddingBottom: 20,
-    // },
     button: {
         margin: 5,
     },
-    screen: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: colors.background
-      },
-    // screen: {
-    //   flex: 1,
-    //   justifyContent: "flex-start",
-    //   alignItems: "center",
-    //   marginTop: 22
-
-    //   },
 
 })
 

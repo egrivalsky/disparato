@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert} from "react-native"
 import Header from "../components/Header";
 import LoadingModal from "../components/LoadingModal";
+import ActionButton from "../components/ActionButton";
 import colors from '../constants/colors';
 
 const NoWordsFoundScreen = (props) => {
@@ -63,10 +64,10 @@ const NoWordsFoundScreen = (props) => {
         </View>
         <View style={styles.buttonsContainer}>
             <View style={styles.button}>                
-            <Button title="[ go back ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
+            <ActionButton title="[ go back ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
             </View>
             <View style={styles.button}>
-            <Button title="[ go deep ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />
+            <ActionButton title="[ go deep ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />
             </View>
         </View>
     </View>
