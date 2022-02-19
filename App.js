@@ -1,15 +1,26 @@
 import { setStatusBarNetworkActivityIndicatorVisible, StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native'
-import Manual from './screens/Manual';
+import TwoDegreeWordsScreen from './screens/TwoDegreeWordsScreen';
 import Start from './screens/Start';
 import FoundWords from './screens/FoundWords';
-import Test from './components/Test'
+import GeneralErrorScreen from './screens/GeneralErrorScreen';
+import NoWordsFoundScreen from './screens/NoWordsFoundScreen';
+import AppLoading from 'expo-app-loading';
+import * as Font from 'expo-font';
 
+const fetchFonts = () => {
+  return Font.loadAsync({
+    'tinos-regular': require('./assets/fonts/Tinos-Regular.ttf'),
+    'tinos-bold': require('./assets/fonts/Tinos-Bold.ttf'),
+  });
+};
 
 export default function App(props) {
 
-  // let [ screenShown, setScreenShown ] = useState(startScreen);
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+
   let [ firstWord, setFirstWord ] = useState('');
   let [ wordTwo, setWordTwo ] = useState('');
   let [firstDegreeWords, setFirstDegreeWords] = useState([])
@@ -17,7 +28,22 @@ export default function App(props) {
   let [wordTwoList, setWordTwoList] = useState([]);
   let [goDeeperList1, setGoDeeperList1] = useState([])
   let [goDeeperList2, setGoDeeperList2] = useState([])
+  let [error, setError] = useState(false)
+  let [errorMessage, setErrorMessage] = useState('')
+  let [nothingFound, setNothingFound] = useState(false)
 
+  // let [showLoadingScreen, setShowLoadingScreen] = useState(false)
+
+  // let [goingDeeper, setGoingDeeper] = useState(false)
+  let [twoDegreeData, setTwoDegreeData] = useState(null)
+
+  if (!dataLoaded) {
+    return <AppLoading 
+    startAsync={fetchFonts}
+    onFinish={()=>setDataLoaded(true)}
+    onError={(err) => console.log('App.js Line 34: ' + err)}
+    />
+  }
 
   const onGoHandler = async (selectedWordOne, selectedWordTwo)=> { 
 
@@ -28,46 +54,94 @@ export default function App(props) {
       let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
 
       let json = await response.json();
-
+      if (json.error) {
+        if (json['displayMessageToUser']) {
+          setErrorMessage(json['message'])
+        }
+        console.log(json.message)
+        console.log(json.origin)
+        
+        setError(true)
+      } else {
       let wordOneRelations = json.wordOneList;
       let wordTwoRelations = json.wordTwoList;
       let firstDegreeWords = json.immediateWords;
       let deeperList1 = json.goDeeperList1;
       let deeperList2 = json.goDeeperList2;
 
-      console.log(firstDegreeWords)
       setWordOneList(wordOneRelations);
       setWordTwoList(wordTwoRelations);
       setFirstDegreeWords(firstDegreeWords)
       setGoDeeperList1([...deeperList1])
       setGoDeeperList2([...deeperList2])
+      }
 
       } catch(error) {
       console.error(error)
       }
-
     };
 
   const goBackHandler = ()=> {
+    setNothingFound(false);
     setFirstWord(''); 
-    setWordTwo(''); };
+    setWordTwo(''); 
+    setTwoDegreeData(null);
+    setError(false)};
 
-  let startScreen = <Start onPressHandler={onGoHandler}/>
+  const goBackToFoundWordsHandler = ()=> {  
+    setTwoDegreeData(null);
+    setNothingFound(false);
+  };
+
+  const twoDegWords = data => {
+    setTwoDegreeData(data);
+  }
+
+  let startScreen = <Start onPressHandler={onGoHandler}/>;
   let wordsScreen = <FoundWords onPressHandler={goBackHandler}
   w1={firstWord} 
   w2={wordTwo}
   disparato={firstDegreeWords}
+  firstWords={nothingFound}
   w1List={goDeeperList1}
   w2List={goDeeperList2}
+  updateTwoDegData={twoDegWords}
   />;
+  let twoDegreeWordsScreen = <TwoDegreeWordsScreen wordOne={firstWord} wordTwo={wordTwo} data={twoDegreeData} onPressHandler={goBackHandler} goBackToFoundWordsHandler={goBackToFoundWordsHandler}/>;
+  let generalErrorScreen = <GeneralErrorScreen onPressHandler={goBackHandler} message={errorMessage}/>
+  let noResultsScreen = <NoWordsFoundScreen onPressHandler={goBackHandler}
+    w1={firstWord} 
+    w2={wordTwo}
+    disparato={firstDegreeWords}
+    firstWords={nothingFound}
+    w1List={goDeeperList1}
+    w2List={goDeeperList2}
+    updateTwoDegData={twoDegWords}
+  />
 
-  let content = startScreen;
+//NAVIGATION
+  let content = startScreen
+  if (!error) {
+    if (firstWord == '' && wordTwo == '' && twoDegreeData == null) {
+      content = startScreen;
+    }
+    else if (firstWord != '' && wordTwo != '' && firstDegreeWords.length <= 0 && twoDegreeData == null) {
 
-  if (firstWord != '' && wordTwo != '') {
-    content = wordsScreen;
+      content = noResultsScreen
+    }
+    else if (firstWord != '' && wordTwo != '' && twoDegreeData == null) {
+      content = wordsScreen;
+    }
+
+    else if (firstWord != '' && wordTwo != '' && twoDegreeData != null) {
+      content = twoDegreeWordsScreen
+    }
+    else {
+      content = generalErrorScreen
+    }
+  } else {
+    content = generalErrorScreen
   }
-
-  // console.log('Word One: ' + firstWord + ' Word Two: ' + wordTwo)
 
   return (
     <View style={styles.screen}>
@@ -79,7 +153,7 @@ export default function App(props) {
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1
+    flex: 1,
   }
 })
 
