@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useMemo} from "react";
 import {Text, View, StyleSheet, FlatList} from "react-native"
 import Header from "../components/Header";
 import WordMapModal from "../components/WordMapModal";
@@ -34,6 +34,8 @@ const TwoDegreeWordsScreen = (props) => {
            const wordTwoParent = item[thisWord]["wordTwoParent"].join();
            twoDegArray.push({"thisWord": thisWord, "wordOneParent": wordOneParent, "wordTwoParent": wordTwoParent});
 })}
+
+
       <FlatList style={styles.scrollView} data={Object.keys(twoDegArray)} 
         renderItem={({ item }) => 
           <WordMapModal key={twoDegArray[item].thisWord} 

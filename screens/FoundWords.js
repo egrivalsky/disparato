@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import {Text, ScrollView, View, StyleSheet, Button, Pressable, Modal, Alert} from "react-native"
+// import AppLoading from 'expo-app-loading';
+// import * as Font from 'expo-font';
 import Header from "../components/Header";
 import ActionButton from "../components/ActionButton";
 import LoadingModal from '../components/LoadingModal';
@@ -77,12 +79,15 @@ const FoundWords = (props) => {
         </View>
 
         <View style={styles.buttonsContainer}>
-            <View style={styles.button}>                
-            <ActionButton  title="[   go   back   ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
-            </View>
+
             <View style={styles.button}>
-            <ActionButton title="[   go   deep   ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />
+                <ActionButton title="[   go   deep   ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />
             </View>
+
+            <View style={styles.button}>                
+                <ActionButton  title="[   go   back   ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
+            </View>
+
         </View>
 
     </View>
