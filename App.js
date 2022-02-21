@@ -44,8 +44,6 @@ export default function App(props) {
   const onGoHandler = async (selectedWordOne, selectedWordTwo)=> { 
     setFirstWord(selectedWordOne); 
     setWordTwo(selectedWordTwo);
-    setInitialSearchExecuted(true)
-
 
     try { 
       let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
@@ -55,25 +53,24 @@ export default function App(props) {
         if (json['displayMessageToUser']) {
           setErrorMessage(json['message'])
         }
-        console.log(json.message)
-        console.log(json.origin)
-        
+        // console.log(json.message)
+        // console.log(json.origin)
         setError(true)
+
       } else {
-      let wordOneRelations = json.wordOneList;
-      let wordTwoRelations = json.wordTwoList;
+
       let firstDegreeWords = json.immediateWords;
       let deeperList1 = json.goDeeperList1;
       let deeperList2 = json.goDeeperList2;
 
-      // setInitialSearchExecuted(true)
+      setInitialSearchExecuted(true)
       setFirstDegreeWords(firstDegreeWords)
       setGoDeeperList1([...deeperList1])
       setGoDeeperList2([...deeperList2])
       }
 
       } catch(error) {
-      console.error(error)
+      // console.error(error)
       }
     };
 

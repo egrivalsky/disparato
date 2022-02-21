@@ -7,13 +7,11 @@ import colors from '../constants/colors'
 
 
 const TwoDegreeWordsScreen = (props) => {
-  // const twoDegData = JSON.parse(props.data)
-  // console.log("TwoDegData line 9")
-  const twoDegData = props.data
 
-  const [modalVisible, setModalVisible] = useState(false)
+  const twoDegData = props.data
   const w1 = props.wordOne
   const w2 = props.wordTwo
+  
   const twoDegArray=[]
   return(
     <View style={styles.screen}>
@@ -52,16 +50,12 @@ const TwoDegreeWordsScreen = (props) => {
     </View>
     <View style={styles.buttonsContainer}>
             <View style={styles.button}>                
-            <ActionButton title="[  go  back  ]" onPress={()=>{props.goBackToFoundWordsHandler()}} />     
+                <ActionButton title="[  go  back  ]" onPress={()=>{props.goBackToFoundWordsHandler()}} />     
             </View>
             <View style={styles.button}>
-            <ActionButton title="[ start over ]" onPress={()=>{props.onPressHandler()}} />
+                <ActionButton title="[ start over ]" onPress={()=>{props.onPressHandler()}} />
             </View>
         </View>
-    {/* <View style={styles.buttonsContainer} >
-        <ActionButton title="[   go   back   ]" onPress={()=>{props.goBackToFoundWordsHandler()}} />              
-        <ActionButton title="[ start over ]" onPress={()=>{props.onPressHandler()}} />
-    </View> */}
   </View>
   )}
 

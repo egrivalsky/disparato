@@ -3,34 +3,24 @@ import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import ActionButton from "./ActionButton";
 
 const LoadingModal = (props) => {
-    let modalVisible = props.modalVisible
-
+    
     return (
         <View >
 
             <Modal
                 animationType="fade"
                 transparent={true}
-                visible={modalVisible}
+                visible={props.modalVisible}
             >
-
                 <View style={styles.centeredView}>
-
-
                     <View style={styles.modalView}>
-
-                        <Text style={styles.pleaseWait}>This can take several seconds, but it will get faster the more that people use the app</Text>
-
-
+                        <Text style={styles.pleaseWait}>This can take can take 10-15 seconds, 
+                        but it will get faster the more that people use the app</Text>
                     </View>
-
-
                 </View>
+
             </Modal>
-
         </View>
-
-
     )}
 
 const styles = StyleSheet.create({

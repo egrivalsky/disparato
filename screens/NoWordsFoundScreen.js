@@ -21,12 +21,7 @@ const NoWordsFoundScreen = (props) => {
 
     const goDeeperPressHandler = async () => {
         showModal();
-        // Alert.alert("Please be patient", "This can take a while, but it will speed up as more people use the app",
-        // [
-        //     {text: "okay",
-        //     style: "cancel",
-        // }
-        // ])
+
         console.log("Searching...")
         try { 
        
