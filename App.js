@@ -30,6 +30,7 @@ export default function App(props) {
   let [modalVisibility, setModalVisibility] = useState(false)
   let [nothingFound, setNothingFound] = useState(false)
   let [twoDegreeData, setTwoDegreeData] = useState(null)
+  let [initialSearchExecuted, setInitialSearchExecuted] = useState(false)
 
   if (!dataLoaded) {
     return <AppLoading 
@@ -38,12 +39,13 @@ export default function App(props) {
     onError={(err) => console.log('App.js Line 34: ' + err)}
     />
   }
+  let content = startScreen
 
   const onGoHandler = async (selectedWordOne, selectedWordTwo)=> { 
-
     setFirstWord(selectedWordOne); 
     setWordTwo(selectedWordTwo);
-    setModalVisibility(false)
+    setInitialSearchExecuted(true)
+
 
     try { 
       let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
@@ -64,8 +66,7 @@ export default function App(props) {
       let deeperList1 = json.goDeeperList1;
       let deeperList2 = json.goDeeperList2;
 
-      // setWordOneList(wordOneRelations);
-      // setWordTwoList(wordTwoRelations);
+      // setInitialSearchExecuted(true)
       setFirstDegreeWords(firstDegreeWords)
       setGoDeeperList1([...deeperList1])
       setGoDeeperList2([...deeperList2])
@@ -81,7 +82,8 @@ export default function App(props) {
     setFirstWord(''); 
     setWordTwo(''); 
     setTwoDegreeData(null);
-    setError(false)};
+    setError(false);
+    setInitialSearchExecuted(false)};
 
   const goBackToFoundWordsHandler = ()=> {  
     setTwoDegreeData(null);
@@ -121,16 +123,14 @@ export default function App(props) {
   />
 
 //NAVIGATION
-  let content = startScreen
   if (!error) {
     if (firstWord == '' && wordTwo == '' && twoDegreeData == null) {
       content = startScreen;
     }
-    else if (firstWord != '' && wordTwo != '' && firstDegreeWords.length <= 0 && twoDegreeData == null) {
-
+    else if (initialSearchExecuted == true && firstWord != '' && wordTwo != '' && firstDegreeWords.length <= 0 && twoDegreeData == null) {
       content = noResultsScreen
     }
-    else if (firstWord != '' && wordTwo != '' && twoDegreeData == null) {
+    else if (initialSearchExecuted = true && twoDegreeData == null) {
       content = wordsScreen;
     }
 

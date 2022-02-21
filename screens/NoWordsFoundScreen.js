@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Text, View, StyleSheet, Alert} from "react-native"
 import Header from "../components/Header";
 import ActionButton from "../components/ActionButton";
+import LoadingModal from "../components/LoadingModal";
 import colors from '../constants/colors';
 
 const NoWordsFoundScreen = (props) => {
@@ -13,16 +14,19 @@ const NoWordsFoundScreen = (props) => {
         "immediateWords": props.disparato,
         "wordOneList": props.w1List,
         "wordTwoList": props.w2List
-    } 
+    }
+
+    let [modalVisible, setModalVisible] = useState(false)
+    const showModal = ()=> {setModalVisible(true)}
 
     const goDeeperPressHandler = async () => {
-
-        Alert.alert("Please be patient", "This can take a while, but it will speed up as more people use the app",
-        [
-            {text: "okay",
-            style: "cancel",
-        }
-        ])
+        showModal();
+        // Alert.alert("Please be patient", "This can take a while, but it will speed up as more people use the app",
+        // [
+        //     {text: "okay",
+        //     style: "cancel",
+        // }
+        // ])
         console.log("Searching...")
         try { 
        
@@ -46,6 +50,7 @@ const NoWordsFoundScreen = (props) => {
 
     return (
     <View style={styles.screen}>
+        <LoadingModal modalVisible={modalVisible}/>
         <Header />
         <View style={styles.listHeadingContainer}>
             <Text style={styles.listHeading}>
@@ -62,12 +67,15 @@ const NoWordsFoundScreen = (props) => {
             </View>
         </View>
         <View style={styles.buttonsContainer}>
-            <View style={styles.button}>                
-            <ActionButton title="[ go back ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
-            </View>
+
             <View style={styles.button}>
-            <ActionButton title="[ go deep ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />
+                <ActionButton title="[ go deep ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />
             </View>
+
+            <View style={styles.button}>                
+                <ActionButton title="[ go back ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
+            </View>
+
         </View>
     </View>
 
