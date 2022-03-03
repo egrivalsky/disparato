@@ -18,10 +18,7 @@ const FoundWords = (props) => {
         "wordOneList": props.w1List,
         "wordTwoList": props.w2List
     } 
-
-    // let [wordOneImmediateRelations, setWordOneImmediateRelations] = useState([]);
-    // let [wordTwoImmediateRelations, setWordTwoImmediateRelations] = useState([]);
-    // let [nothingFound, setNothingFound] = useState(props.firstWords)
+    
     let [modalVisible, setModalVisible] = useState(false)
     const showModal = ()=> {setModalVisible(true)}
 
@@ -29,18 +26,12 @@ const FoundWords = (props) => {
 
         showModal();
 
-        // Alert.alert("Please be patient", "This can take a while, but it will speed up as more people use the app",
-        // [
-        //     {text: "okay",
-        //     style: "cancel",
-        // }
-        // ])
-        // console.log("Searching...")
-
         try { 
        
-            let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
-                method: 'POST',
+            // let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
+            let response = await fetch(`http://18.188.249.149/second_degree_words`, {
+
+            method: 'POST',
                 headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

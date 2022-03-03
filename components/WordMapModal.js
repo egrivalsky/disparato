@@ -29,7 +29,7 @@ const WordMapModal = (props) => {
                             {props.w1}
                         </Text>
                         <FontAwesome5 name="arrow-circle-down" size={24} color="black" />
-                        <Text style={styles.modalText}>
+                        <Text style={[styles.modalText, styles.parentWordText]}>
                             {props.w1Parent}
                         </Text>
                         <FontAwesome5 name="arrow-circle-down" size={24} color="black" />

@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Keyboard, TouchableWithoutFeedback, Linking, Text, Alert } from 'react-native';
 import Header from '../components/Header'
 import ActionButton from '../components/ActionButton'
+import TutorialModal from '../components/TutorialModal'
 import colors from '../constants/colors'
 
 const Start = (props) => {
-   
+
   let [ selectedWordOne, setSelectedWordOne ] = useState('')
 
   const wordOneHandler = inputOne => {
@@ -42,7 +43,7 @@ const Start = (props) => {
 
     return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
-      <View style={styles.screen}>
+      <View style={styles.screen}>   
         <Header />
 
         <View style={styles.inputContainer}>
@@ -59,12 +60,15 @@ const Start = (props) => {
             value={selectedWordTwo} 
             onChangeText={wordTwoHandler}>
             </TextInput>
+            
             <View style={styles.button} >
               <ActionButton title="[ GO ]" onPress={goButtonHandler}></ActionButton>
             </View>
+
         </View>
 
         <View style={styles.footer}>
+          <TutorialModal />
           <Text onPress={()=> Linking.openURL('http://disparato.erikgrivalsky.com')} style={styles.footerText}>
             [ about disparato ]
           </Text>
@@ -89,7 +93,8 @@ const Start = (props) => {
         marginTop: 40
       },
       inputContainer: {
-        marginVertical: 150,
+        marginTop: 50,
+        marginBottom: 200,
         paddingVertical: 30,
         height: 300,
         width: '80%',
@@ -114,13 +119,13 @@ const Start = (props) => {
       },
       footer: {
         bottom: 0,
-        height: 32,
+        height: '100%',
         
       },
       footerText: {
         fontSize: 22,
         fontFamily: 'tinos-regular',
-        margin: 0,
+        marginVertical: 10,
         padding: 0
       }
 
