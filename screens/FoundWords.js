@@ -28,8 +28,10 @@ const FoundWords = (props) => {
 
         try { 
        
-            let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
-                method: 'POST',
+            // let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
+            let response = await fetch(`http://18.188.249.149/second_degree_words`, {
+
+            method: 'POST',
                 headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

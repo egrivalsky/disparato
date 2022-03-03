@@ -5,6 +5,7 @@ import Start from './screens/Start';
 import FoundWords from './screens/FoundWords';
 import GeneralErrorScreen from './screens/GeneralErrorScreen';
 import NoWordsFoundScreen from './screens/NoWordsFoundScreen';
+import Test_StartScreen from './screens/Start';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 
@@ -46,7 +47,8 @@ export default function App(props) {
     setWordTwo(selectedWordTwo);
 
     try { 
-      let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
+      // let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
+      let response = await fetch(`http://18.188.249.149/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
 
       let json = await response.json();
       if (json.error) {
