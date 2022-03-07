@@ -11,6 +11,10 @@ const LoadingModal = (props) => {
                 animationType="fade"
                 transparent={true}
                 visible={props.modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Deep Search Cancelled");
+                    setModalVisible(!modalVisible);
+                }}
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
