@@ -18,13 +18,18 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.erikgrivalsky.disparato",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.erikgrivalsky.disparato",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#eaeaee"
-      }
+      },
+      "permissions": []
     },
     "web": {
       "favicon": "./assets/favicon.png"
