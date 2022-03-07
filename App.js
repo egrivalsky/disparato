@@ -98,8 +98,13 @@ export default function App(props) {
     console.log("SetModalVisibilty app.js line 103")
   }
 
+  const cancelDeepSearch = () => {
+    setTwoDegreeData(null)
+  }
+
   let startScreen = <Start onPressHandler={onGoHandler}/>;
   let wordsScreen = <FoundWords onPressHandler={goBackHandler}
+  cancelDeepSearch={cancelDeepSearch}
   w1={firstWord} 
   w2={wordTwo}
   disparato={firstDegreeWords}
