@@ -11,11 +11,15 @@ const LoadingModal = (props) => {
                 animationType="fade"
                 transparent={true}
                 visible={props.modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Deep Search Cancelled");
+                    setModalVisible(!modalVisible);
+                }}
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={styles.pleaseWait}>This can take can take 10-15 seconds, 
-                        but it will get faster the more that people use the app</Text>
+                        <Text style={styles.pleaseWait}>Searching... This can take can take 10-15 seconds, 
+                        but it will get faster as more people use the app</Text>
                     </View>
                 </View>
 
