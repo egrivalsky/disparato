@@ -19,12 +19,16 @@ const FoundWords = (props) => {
         "wordTwoList": props.w2List
     } 
     
-    let [modalVisible, setModalVisible] = useState(false)
-    const showModal = ()=> {setModalVisible(true)}
+    // let [modalVisible, setModalVisible] = useState(false)
+    // const showModal = ()=> {setModalVisible(true)}
 
     const goDeeperPressHandler = async () => {
 
-        showModal();
+        // showModal();
+        Alert.alert(
+            "Searching...",
+            "This can take can take 10-15 seconds, but it will get faster as more people use the app"
+        )
 
         try { 
        
@@ -49,7 +53,7 @@ const FoundWords = (props) => {
 
     return (
     <View style={styles.screen}>
-        <LoadingModal modalVisible={modalVisible}/>
+        {/* <LoadingModal modalVisible={modalVisible}/> */}
         <Header />
         <View style={styles.listHeadingContainer}>
             <Text style={styles.listHeading}>

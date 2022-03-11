@@ -16,7 +16,7 @@ const NothingFoundModal = (props) => {
                 visible={modalVisible}
                 // onRequestClose={() => {
                 //     Alert.alert("You closed the modal.");
-                //     setModalVisible(!modalVisible);
+                    // setModalVisible(!modalVisible);
                 // }}                
             >
 

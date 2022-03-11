@@ -3,7 +3,6 @@ import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import ActionButton from "./ActionButton";
 
 const LoadingModal = (props) => {
-    
     return (
         <View >
 
@@ -13,7 +12,6 @@ const LoadingModal = (props) => {
                 visible={props.modalVisible}
                 onRequestClose={() => {
                     Alert.alert("Deep Search Cancelled");
-                    setModalVisible(!modalVisible);
                 }}
             >
                 <View style={styles.centeredView}>
