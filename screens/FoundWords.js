@@ -29,26 +29,45 @@ const FoundWords = (props) => {
             "Searching...",
             "This can take can take 10-15 seconds, but it will get faster as more people use the app"
         )
+        
+        try {
+            let ping = await fetch(`http://192.168.1.184:8000/`)
+            if (ping.status == 200) {
+              connection = true
+            } else {
+              connection = false
+            }
+          } catch {
+            connection = false
+          }
 
-        try { 
-       
-            let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
-            // let response = await fetch(`http://18.188.249.149/second_degree_words`, {
+        if (connection == true)  {
 
-            method: 'POST',
-                headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(relatedWordsLists)
-          });
-            let data = await response.json();
-            props.updateTwoDegData(data);
+            try { 
+                let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
+                // let response = await fetch(`http://18.188.249.149/second_degree_words`, {
+
+                method: 'POST',
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(relatedWordsLists)
+            });
+                let data = await response.json();
+                props.updateTwoDegData(data);
 
             } catch(error) {
             console.error(error.message)
             }
-          };
+        } else {
+            Alert.alert(
+                "Cannot connect to Disparato server",
+                "Please check your Internet connection and/or try again later."
+            )
+            connection = true
+        }
+    };
 
     return (
     <View style={styles.screen}>

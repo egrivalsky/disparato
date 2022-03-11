@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Alert } from 'react-native'
 import TwoDegreeWordsScreen from './screens/TwoDegreeWordsScreen';
 import Start from './screens/Start';
 import FoundWords from './screens/FoundWords';
@@ -8,6 +8,7 @@ import NoWordsFoundScreen from './screens/NoWordsFoundScreen';
 import NoWordsFoundAtAllScreen from './screens/NoWordsFoundAtAllScreen';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
+// import { Alert } from 'react-native-web';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -45,36 +46,54 @@ export default function App(props) {
   const onGoHandler = async (selectedWordOne, selectedWordTwo)=> { 
     setFirstWord(selectedWordOne); 
     setWordTwo(selectedWordTwo);
-
-    try { 
-      let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
-      // let response = await fetch(`http://18.188.249.149/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
-
-      let json = await response.json();
-      if (json.error) {
-        if (json['displayMessageToUser']) {
-          setErrorMessage(json['message'])
-        }
-        // console.log(json.message)
-        // console.log(json.origin)
-        setError(true)
-
+    let connection
+    try {
+      let ping = await fetch(`http://192.168.1.184:8000/`)
+      if (ping.status == 200) {
+        connection = true
       } else {
-
-      let firstDegreeWords = json.immediateWords;
-      let deeperList1 = json.goDeeperList1;
-      let deeperList2 = json.goDeeperList2;
-
-      setInitialSearchExecuted(true)
-      setFirstDegreeWords(firstDegreeWords)
-      setGoDeeperList1([...deeperList1])
-      setGoDeeperList2([...deeperList2])
+        connection = false
       }
+    } catch {
+      connection = false
+    }
+    if (connection == true)  {
+      try {
+          let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
+          // let response = await fetch(`http://18.188.249.149/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
 
-      } catch(error) {
-      // console.error(error)
-      }
-    };
+          let json = await response.json();
+          if (json.error) {
+            if (json['displayMessageToUser']) {
+              setErrorMessage(json['message'])
+            }
+            // console.log(json.message)
+            // console.log(json.origin)
+            setError(true)
+
+          } else {
+
+          let firstDegreeWords = json.immediateWords;
+          let deeperList1 = json.goDeeperList1;
+          let deeperList2 = json.goDeeperList2;
+
+          setInitialSearchExecuted(true)
+          setFirstDegreeWords(firstDegreeWords)
+          setGoDeeperList1([...deeperList1])
+          setGoDeeperList2([...deeperList2])
+          }
+
+          } catch(error) {
+          // console.error(error)
+          }
+        } else {
+          Alert.alert(
+            "Cannot connect to Disparato server",
+            "Please check your Internet connection and/or try again later."
+          )
+          connection = true
+        }
+        };
 
   const goBackHandler = ()=> {
     setNothingFound(false);
