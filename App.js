@@ -5,7 +5,7 @@ import Start from './screens/Start';
 import FoundWords from './screens/FoundWords';
 import GeneralErrorScreen from './screens/GeneralErrorScreen';
 import NoWordsFoundScreen from './screens/NoWordsFoundScreen';
-import Test_StartScreen from './screens/Start';
+import NoWordsFoundAtAllScreen from './screens/NoWordsFoundAtAllScreen';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 
@@ -47,8 +47,8 @@ export default function App(props) {
     setWordTwo(selectedWordTwo);
 
     try { 
-      // let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
-      let response = await fetch(`http://18.188.249.149/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
+      let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
+      // let response = await fetch(`http://18.188.249.149/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
 
       let json = await response.json();
       if (json.error) {
@@ -90,7 +90,7 @@ export default function App(props) {
   };
 
   const twoDegWords = data => {
-    setTwoDegreeData(data);
+      setTwoDegreeData(data);
   }
 
   const loadingModalHandler = () => {
@@ -125,6 +125,7 @@ export default function App(props) {
     w2List={goDeeperList2}
     updateTwoDegData={twoDegWords}
   />
+  let goDeepFailure = <NoWordsFoundAtAllScreen w1={firstWord} w2={wordTwo} onPressHandler={goBackHandler}/>
 
 //NAVIGATION
   if (!error) {
@@ -137,7 +138,9 @@ export default function App(props) {
     else if (initialSearchExecuted = true && twoDegreeData == null) {
       content = wordsScreen;
     }
-
+    else if (firstWord != '' && wordTwo != '' && twoDegreeData['error']) {
+      content = goDeepFailure
+    }
     else if (firstWord != '' && wordTwo != '' && twoDegreeData != null) {
       content = twoDegreeWordsScreen
     }
@@ -151,6 +154,7 @@ export default function App(props) {
   return (
     <View style={styles.screen}>
       {content}
+      {/* {goDeepFailure} */}
     </View>
 
   );
