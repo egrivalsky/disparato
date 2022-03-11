@@ -20,11 +20,16 @@ const WordMapModal = (props) => {
             >
 
                 <View style={styles.centeredView}>
-                <Pressable onPress={() => {
-                                setModalVisible(!modalVisible)
+
+                    <View style={styles.modalView}>
+                        <Pressable style={styles.closeButton} onPress={() => {
+                            setModalVisible(!modalVisible)
                             }}
                             >
-                    <View style={styles.modalView}>
+                            <View >
+                                <FontAwesome5 name="window-close" size={32} color="black" />
+                            </View>
+                        </Pressable>
                         <Text style={styles.modalText}>
                             {props.w1}
                         </Text>
@@ -47,7 +52,7 @@ const WordMapModal = (props) => {
 
                         
                     </View>
-                    </Pressable>
+                    
                 </View>
             </Modal>
 
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
         width: "90%",
         margin: 20,
         backgroundColor: "white",
-        padding: 35,
+        padding: 20,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -114,6 +119,9 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5
     },
+    closeButton : {
+        alignSelf: "flex-end"
+    }
 
 
 

@@ -9,6 +9,8 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+keystore_credentials.txt
+disparato.jks
 
 # macOS
 .DS_Store
