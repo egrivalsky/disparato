@@ -18,33 +18,40 @@ const FoundWords = (props) => {
         "wordOneList": props.w1List,
         "wordTwoList": props.w2List
     } 
-    
+    let [searching, setSearching] = useState(false);
     // let [modalVisible, setModalVisible] = useState(false)
     // const showModal = ()=> {setModalVisible(true)}
 
     const goDeeperPressHandler = async () => {
 
         // showModal();
+        console.log("Found Words -- Searching...")
         Alert.alert(
             "Searching...",
             "This can take can take 10-15 seconds, but it will get faster as more people use the app"
         )
-        
+        setSearching(true)
+        console.log('Doing deep search -- connection succesful')
+        let connection
         try {
-            let ping = await fetch(`http://192.168.1.184:8000/`)
+            let ping = await fetch('http://disparato-env.eba-kmpmbcq5.us-east-2.elasticbeanstalk.com/')
+            // let ping = await fetch('http://18.188.249.149')
+
             if (ping.status == 200) {
               connection = true
+              console.log('Doing deep search -- connection succesful')
             } else {
               connection = false
             }
-          } catch {
+        } catch {
             connection = false
-          }
+        }
 
         if (connection == true)  {
 
             try { 
-                let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
+                let response = await fetch(`http://disparato-env.eba-kmpmbcq5.us-east-2.elasticbeanstalk.com/second_degree_words`, {
+                // let response = await fetch(`http://192.168.1.143:8000/second_degree_words`, {
                 // let response = await fetch(`http://18.188.249.149/second_degree_words`, {
 
                 method: 'POST',
@@ -53,10 +60,10 @@ const FoundWords = (props) => {
                     'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(relatedWordsLists)
-            });
+                });
                 let data = await response.json();
                 props.updateTwoDegData(data);
-
+                setSearching(false)
             } catch(error) {
             console.error(error.message)
             }
@@ -68,7 +75,21 @@ const FoundWords = (props) => {
             connection = true
         }
     };
-
+    let content
+    if(searching == false) {
+        content =
+            <View style={styles.list}>
+            <ScrollView style={styles.scrollView}>
+            {props.disparato.map(word => 
+            <View key={word} style={styles.wordCard}>
+                <Text style={styles.word}>{word}</Text>
+            </View>
+            )}
+            </ScrollView>
+            </View>
+    } else {
+        content = <Text>Searching...</Text>
+        }
     return (
     <View style={styles.screen}>
         {/* <LoadingModal modalVisible={modalVisible}/> */}
@@ -80,16 +101,16 @@ const FoundWords = (props) => {
                 <Text style={styles.searchedWord}> {w2}</Text>
             </Text>
         </View>
-
-        <View style={styles.list}>
-            <ScrollView style={styles.scrollView}>
+        {content}
+        {/* <View style={styles.list}>  */}
+            {/* <ScrollView style={styles.scrollView}>
                 {props.disparato.map(word => 
                 <View key={word} style={styles.wordCard}>
                     <Text style={styles.word}>{word}</Text>
                 </View>
                 )}
-            </ScrollView>
-        </View>
+            </ScrollView> */}
+        {/* </View> */}
 
         <View style={styles.buttonsContainer}>
 
@@ -132,7 +153,7 @@ const styles = StyleSheet.create({
     list: {
         width: '100%',
         alignItems: 'center',
-        height: '60%',
+        height: '50%',
         paddingVertical: 10,
     },
     scrollView: {

@@ -80,7 +80,7 @@ const TwoDegreeWordsScreen = (props) => {
     list: {
         width: '100%',
         alignItems: 'center',
-        height: '60%',
+        height: '50%',
         paddingVertical: 10,
     },
     scrollView: {

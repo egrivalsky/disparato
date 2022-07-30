@@ -48,7 +48,11 @@ export default function App(props) {
     setWordTwo(selectedWordTwo);
     let connection
     try {
-      let ping = await fetch(`http://192.168.1.184:8000/`)
+      let ping = await fetch('http://disparato-env.eba-kmpmbcq5.us-east-2.elasticbeanstalk.com/')
+      // let ping = await fetch('http://192.168.1.143:8000/')
+      
+      // let ping = await fetch('http://18.188.249.149')
+      console.log(ping.status)
       if (ping.status == 200) {
         connection = true
       } else {
@@ -59,16 +63,18 @@ export default function App(props) {
     }
     if (connection == true)  {
       try {
-          let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
+        console.log('connection ' + connection)
+          let response = await fetch(`http://disparato-env.eba-kmpmbcq5.us-east-2.elasticbeanstalk.com/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
+          // let response = await fetch(`http://192.168.1.143:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
           // let response = await fetch(`http://18.188.249.149/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
 
-          let json = await response.json();
+          json = await response.json();
           if (json.error) {
             if (json['displayMessageToUser']) {
               setErrorMessage(json['message'])
             }
-            // console.log(json.message)
-            // console.log(json.origin)
+            console.log(json.message)
+            console.log(json.origin)
             setError(true)
 
           } else {
@@ -84,7 +90,7 @@ export default function App(props) {
           }
 
           } catch(error) {
-          // console.error(error)
+          console.error(error)
           }
         } else {
           Alert.alert(
@@ -173,7 +179,6 @@ export default function App(props) {
   return (
     <View style={styles.screen}>
       {content}
-      {/* {goDeepFailure} */}
     </View>
 
   );
