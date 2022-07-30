@@ -20,6 +20,7 @@ const Start = (props) => {
   }
 
   const goButtonHandler = ()=> {
+    console.log('the words are ' + selectedWordOne + ' and ' + selectedWordTwo)
     if (
       (selectedWordOne.length > 0) && (selectedWordTwo.length > 0)
       && (

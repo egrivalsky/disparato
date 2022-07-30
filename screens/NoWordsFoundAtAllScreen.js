@@ -16,22 +16,20 @@ const NoWordsFoundScreen = (props) => {
         "wordTwoList": props.w2List
     }
 
-    let [searching, setSearching] = useState(false);
     // let [modalVisible, setModalVisible] = useState(false)
     // const showModal = ()=> {setModalVisible(true)}
 
     const goDeeperPressHandler = async () => {
         // showModal();
 
-        console.log("No Words Found -- Searching...")
+        console.log("Searching...")
         Alert.alert(
             "Searching...",
             "This can take can take 10-15 seconds, but it will get faster as more people use the app"
         )
-        setSearching(true)
         try { 
        
-            let response = await fetch(`http://disparato-env.eba-kmpmbcq5.us-east-2.elasticbeanstalk.com/second_degree_words`, {
+            let response = await fetch(`http://192.168.1.184:8000/second_degree_words`, {
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',
@@ -43,27 +41,14 @@ const NoWordsFoundScreen = (props) => {
 
             
             props.updateTwoDegData(data);
-            setSearching(false)
+
             } catch(error) {
             console.error(error.message)
             }
           };
 
-    let content
-    if(searching == false) {
-        content =
-        <View style={styles.list}>
-            <View style={styles.centeredView} >
-                <Text style={styles.pleaseWait}>No immediately related words found.</Text>
-                <Text style={styles.pleaseWait}>Try the "GO DEEP" button for words related through other words.</Text>
-            </View>
-        </View>
-    } else {
-        content = <Text style={styles.pleaseWait}>Searching...</Text>
-        }
     return (
     <View style={styles.screen}>
-        {/* <LoadingModal modalVisible={modalVisible}/> */}
         <Header />
         <View style={styles.listHeadingContainer}>
             <Text style={styles.listHeading}>
@@ -72,18 +57,14 @@ const NoWordsFoundScreen = (props) => {
                 <Text style={styles.searchedWord}> {w2}</Text>
             </Text>
         </View>
-        { content }
-        {/* <View style={styles.list}>
-            <View style={styles.centeredView} >
-                <Text style={styles.pleaseWait}>No immediately related words found.</Text>
-                <Text style={styles.pleaseWait}>Try the "GO DEEP" button for words related through other words.</Text>
-            </View>
-        </View> */}
-        <View style={styles.buttonsContainer}>
 
-            <View style={styles.button}>
-                <ActionButton title="[ go deep ]" style={styles.button} onPress={()=>{goDeeperPressHandler()}} />
+        <View style={styles.list}>
+            <View style={styles.centeredView} >
+                <Text style={styles.pleaseWait}>Wow. After all of that we still found nothing.</Text>
+                <Text style={styles.pleaseWait}>Sorry.</Text>
             </View>
+        </View>
+        <View style={styles.buttonsContainer}>
 
             <View style={styles.button}>                
                 <ActionButton title="[ go back ]" style={styles.button} onPress={()=>{props.onPressHandler()}} />
@@ -128,7 +109,7 @@ const styles = StyleSheet.create({
     list: {
         width: '100%',
         alignItems: 'center',
-        height: '50%',
+        height: '60%',
         paddingVertical: 10,
 
     },

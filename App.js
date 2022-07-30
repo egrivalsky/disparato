@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Alert } from 'react-native'
 import TwoDegreeWordsScreen from './screens/TwoDegreeWordsScreen';
 import Start from './screens/Start';
 import FoundWords from './screens/FoundWords';
 import GeneralErrorScreen from './screens/GeneralErrorScreen';
 import NoWordsFoundScreen from './screens/NoWordsFoundScreen';
-import Test_StartScreen from './screens/Start';
+import NoWordsFoundAtAllScreen from './screens/NoWordsFoundAtAllScreen';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
+// import { Alert } from 'react-native-web';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -45,36 +46,60 @@ export default function App(props) {
   const onGoHandler = async (selectedWordOne, selectedWordTwo)=> { 
     setFirstWord(selectedWordOne); 
     setWordTwo(selectedWordTwo);
-
-    try { 
-      // let response = await fetch(`http://192.168.1.184:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
-      let response = await fetch(`http://18.188.249.149/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
-
-      let json = await response.json();
-      if (json.error) {
-        if (json['displayMessageToUser']) {
-          setErrorMessage(json['message'])
-        }
-        // console.log(json.message)
-        // console.log(json.origin)
-        setError(true)
-
+    let connection
+    try {
+      let ping = await fetch('http://disparato-env.eba-kmpmbcq5.us-east-2.elasticbeanstalk.com/')
+      // let ping = await fetch('http://192.168.1.143:8000/')
+      
+      // let ping = await fetch('http://18.188.249.149')
+      console.log(ping.status)
+      if (ping.status == 200) {
+        connection = true
       } else {
-
-      let firstDegreeWords = json.immediateWords;
-      let deeperList1 = json.goDeeperList1;
-      let deeperList2 = json.goDeeperList2;
-
-      setInitialSearchExecuted(true)
-      setFirstDegreeWords(firstDegreeWords)
-      setGoDeeperList1([...deeperList1])
-      setGoDeeperList2([...deeperList2])
+        connection = false
       }
+    } catch {
+      connection = false
+    }
+    if (connection == true)  {
+      try {
+        console.log('connection ' + connection)
+          let response = await fetch(`http://disparato-env.eba-kmpmbcq5.us-east-2.elasticbeanstalk.com/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
+          // let response = await fetch(`http://192.168.1.143:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
+          // let response = await fetch(`http://18.188.249.149/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
 
-      } catch(error) {
-      // console.error(error)
-      }
-    };
+          json = await response.json();
+          if (json.error) {
+            if (json['displayMessageToUser']) {
+              setErrorMessage(json['message'])
+            }
+            console.log(json.message)
+            console.log(json.origin)
+            setError(true)
+
+          } else {
+
+          let firstDegreeWords = json.immediateWords;
+          let deeperList1 = json.goDeeperList1;
+          let deeperList2 = json.goDeeperList2;
+
+          setInitialSearchExecuted(true)
+          setFirstDegreeWords(firstDegreeWords)
+          setGoDeeperList1([...deeperList1])
+          setGoDeeperList2([...deeperList2])
+          }
+
+          } catch(error) {
+          console.error(error)
+          }
+        } else {
+          Alert.alert(
+            "Cannot connect to Disparato server",
+            "Please check your Internet connection and/or try again later."
+          )
+          connection = true
+        }
+        };
 
   const goBackHandler = ()=> {
     setNothingFound(false);
@@ -90,7 +115,7 @@ export default function App(props) {
   };
 
   const twoDegWords = data => {
-    setTwoDegreeData(data);
+      setTwoDegreeData(data);
   }
 
   const loadingModalHandler = () => {
@@ -125,6 +150,7 @@ export default function App(props) {
     w2List={goDeeperList2}
     updateTwoDegData={twoDegWords}
   />
+  let goDeepFailure = <NoWordsFoundAtAllScreen w1={firstWord} w2={wordTwo} onPressHandler={goBackHandler}/>
 
 //NAVIGATION
   if (!error) {
@@ -137,7 +163,9 @@ export default function App(props) {
     else if (initialSearchExecuted = true && twoDegreeData == null) {
       content = wordsScreen;
     }
-
+    else if (firstWord != '' && wordTwo != '' && twoDegreeData['error']) {
+      content = goDeepFailure
+    }
     else if (firstWord != '' && wordTwo != '' && twoDegreeData != null) {
       content = twoDegreeWordsScreen
     }
