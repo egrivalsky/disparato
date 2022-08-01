@@ -48,7 +48,7 @@ const Start = (props) => {
         <Header />
 
         <View style={styles.inputContainer}>
-            <TextInput placeholder="this word" 
+            <TextInput placeholder="first word" 
             autoCapitalize="none"
             style = {styles.inputBox} 
             value={selectedWordOne} 
