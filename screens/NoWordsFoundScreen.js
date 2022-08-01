@@ -106,12 +106,12 @@ const styles = StyleSheet.create({
     pleaseWait: {
         fontFamily: 'tinos-regular',
         fontSize: 24,
-        margin: 5,
+        margin: '3%',
         textAlign: 'center',
     },
     centeredView: {
         alignItems: "center",
-        marginTop: 100,
+        marginTop: '20%',
         width: '60%',
     },
     listHeadingContainer: {
@@ -132,10 +132,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
 
     },
-    scrollView: {
-        padding: 20,
 
-    },
     word: {
         fontSize: 22,
         paddingHorizontal: 40,
@@ -143,12 +140,12 @@ const styles = StyleSheet.create({
     },
 
     buttonsContainer: {
-        height: 200, 
+        height: '10%', 
         justifyContent: 'center',
         alignItems: 'center',
 
     },
     button: {
-        margin: 5,
+        margin: '2%',
     },
 })

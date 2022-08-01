@@ -48,7 +48,7 @@ const Start = (props) => {
         <Header />
 
         <View style={styles.inputContainer}>
-            <TextInput placeholder="first word" 
+            <TextInput placeholder="this word" 
             autoCapitalize="none"
             style = {styles.inputBox} 
             value={selectedWordOne} 
@@ -91,14 +91,14 @@ const Start = (props) => {
       },
       button: {
         fontFamily: 'tinos-regular',
-        marginTop: 40
+        marginTop: '10%'
       },
       inputContainer: {
-        marginTop: 50,
-        marginBottom: 200,
-        paddingVertical: 30,
-        height: 300,
-        width: '80%',
+        marginTop: '5%',
+        marginBottom: '10%',
+        paddingVertical: '2%',
+        height: '50%',
+        width: '90%',
         backgroundColor: 'lavender',
         alignItems: 'center',
         justifyContent: 'space-evenly',
@@ -106,9 +106,9 @@ const Start = (props) => {
 
       },
       inputBox: {
-        minHeight: 60,
-        paddingHorizontal: 10,
-        marginTop: 20,
+        // minHeight: 60,
+        paddingHorizontal: '5%',
+        marginTop: '10%',
         width: '80%',
         height: '20%',
         borderColor: "black",
@@ -120,13 +120,13 @@ const Start = (props) => {
       },
       footer: {
         bottom: 0,
-        height: '100%',
+        // height: '10%',
         
       },
       footerText: {
         fontSize: 22,
         fontFamily: 'tinos-regular',
-        marginVertical: 10,
+        marginVertical: '2%',
         padding: 0
       }
 

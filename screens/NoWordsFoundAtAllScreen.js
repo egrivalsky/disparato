@@ -87,12 +87,12 @@ const styles = StyleSheet.create({
     pleaseWait: {
         fontFamily: 'tinos-regular',
         fontSize: 24,
-        margin: 5,
+        margin: '2%',
         textAlign: 'center',
     },
     centeredView: {
         alignItems: "center",
-        marginTop: 100,
+        marginTop: '20%',
         width: '60%',
     },
     listHeadingContainer: {
@@ -109,27 +109,18 @@ const styles = StyleSheet.create({
     list: {
         width: '100%',
         alignItems: 'center',
-        height: '60%',
-        paddingVertical: 10,
+        height: '40%',
+        paddingVertical: '3%',
 
-    },
-    scrollView: {
-        padding: 20,
-
-    },
-    word: {
-        fontSize: 22,
-        paddingHorizontal: 40,
-        fontFamily: 'tinos-regular',
     },
 
     buttonsContainer: {
-        height: 200, 
+        height: '20%', 
         justifyContent: 'center',
         alignItems: 'center',
 
     },
     button: {
-        margin: 5,
+        margin: '5%',
     },
 })

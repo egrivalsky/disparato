@@ -68,7 +68,7 @@ export default function App(props) {
           // let response = await fetch(`http://192.168.1.143:8000/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
           // let response = await fetch(`http://18.188.249.149/related_words/${selectedWordOne}/${selectedWordTwo}/data.json`);
 
-          json = await response.json();
+          let json = await response.json();
           if (json.error) {
             if (json['displayMessageToUser']) {
               setErrorMessage(json['message'])
@@ -179,6 +179,7 @@ export default function App(props) {
   return (
     <View style={styles.screen}>
       {content}
+      {/* <NoWordsFoundScreen /> */}
     </View>
 
   );
