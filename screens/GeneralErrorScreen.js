@@ -22,7 +22,7 @@ const GeneralErrorScreen = (props) => {
         <View style={styles.buttonContainer}>
 
             <Text style={styles.errorMessage}>{errorMessage}</Text>
-            <Text style={styles.errorMessage}>I'm so sorry.</Text>
+            {/* <Text style={styles.errorMessage}>.</Text> */}
 
         </View>
 
@@ -53,9 +53,9 @@ const GeneralErrorScreen = (props) => {
           fontSize: 32,
       },
       buttonContainer: {
-        marginVertical: 150,
-        paddingTop: 40,
-        height: 200,
+        marginVertical: 100,
+        // paddingTop: 40,
+        height: '20%',
         width: '80%',
         backgroundColor: 'lavender',
         alignItems: 'center',
