@@ -9,13 +9,13 @@
 A common approach to generating jokes, especially the topical one-liners you might here during a late night monologue, involves:
   1. Finding a news item and selecting two important words from the headline
   2. For each of those two words, generating a list of associated words word and ideas
-  3. Finding unexpected commonalities between the two lists
+  3. Finding unexpected commonalities between the two lists\
 [More how to use this process from the master](https://joetoplyn.com/how-to-write-a-joke/)
 
 Disparato helps writers with steps two and three.
 
 The Disparato app is written in React Native and uses the [Expo](https://www.expo.dev) wrapper.
-The [backend](https://github.com/egrivalsky/disparato-backend) is written in Python using the Django framework. It's a REST API that accesses the wonderful [Datamuse API](https://www.datamuse.com/) to find related. It sends and receives JSON to and from this front end. words.
+The [backend](https://github.com/egrivalsky/disparato-backend) is written in Python using the Django framework. It's a REST API that accesses the wonderful [Datamuse API](https://www.datamuse.com/) to find syntactically related words. It sends and receives JSON to and from this front end.
 
 ## Installation
 This app was built using [Expo](https://www.expo.dev) and React Native.
